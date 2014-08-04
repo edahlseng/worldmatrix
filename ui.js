@@ -80,31 +80,34 @@ function calcXPos(timestamp) {
 function buildTimeline(range) {
 	// var range = _timeRange(uielems);
 
-	var timedelta_mins = (range.max.getTime() - range.min.getTime()) / (1000*60);
+	// var timedelta_mins = (range.max.getTime() - range.min.getTime()) / (1000*60);
 
 	var timebucket = 120;
-	var numBuckets = Math.ceil(timedelta_mins / timebucket);
+	// var numBuckets = Math.ceil(timedelta_mins / timebucket);
+	var numBuckets = range.max - range.min;
 
 	console.log("numBuckets", numBuckets);
 	
-	var d  = new Date();
-	d.setTime(range.min.getTime());
-	var startHr = d.getHours();
+	// var d  = new Date();
+	// d.setTime(range.min.getTime());
+	// var startHr = d.getHours();
     for (var xPos = 0; xPos < numBuckets; xPos++) {
 		var div = document.createElement("div");
-		var hr = (startHr + xPos * 2) % 24;
+		// var hr = (startHr + xPos * 2) % 24;
 	    div.className = 'timebar';
 
-		var txt = hr + ':00';
-		if (hr === 0) { 
-			txt = 'Midnight';
-			div.className += ' midnight';
-		}
-		else if (hr === 6) { 
-			txt = 'Morning';
-		}
-		else if (hr === 18) txt = 'Evening'
-		else if (hr === 12) txt = 'Noon';
+		// var txt = hr + ':00';
+		// if (hr === 0) { 
+		// 	txt = 'Midnight';
+		// 	div.className += ' midnight';
+		// }
+		// else if (hr === 6) { 
+		// 	txt = 'Morning';
+		// }
+		// else if (hr === 18) txt = 'Evening'
+		// else if (hr === 12) txt = 'Noon';
+
+		var txt = "test";
 
 	    div.innerText =  txt;
 	    var object = new THREE.CSS3DObject( div );
