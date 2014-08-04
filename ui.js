@@ -235,9 +235,13 @@ function buildTimeline(range) {
 	    var thumbnail = document.createElement("img");
 	    thumbnail.setAttribute('src', publishers[xPos].thumbnail);
 
+	    var nameTitle = document.createElement("p");
+	    nameTitle.innerText = publishers[xPos].name;
+
 	    var idName = "#" + publishers[xPos].name.replace( /\W/g , '');
 	    div.setAttribute('id', idName);
 	    div.appendChild(thumbnail);
+	    div.appendChild(nameTitle);
 
 	    var object = new THREE.CSS3DObject( div );
 		object.position.x = ( xPos * (itemWidth+xGap) ) - backset;
