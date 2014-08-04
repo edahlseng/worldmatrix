@@ -208,7 +208,7 @@ function buildTimeline(range) {
 
 	var timebucket = 120;
 	// var numBuckets = Math.ceil(timedelta_mins / timebucket);
-	var numBuckets = range.max - range.min;
+	var numBuckets = 24;
 
 	console.log("numBuckets", numBuckets);
 	
