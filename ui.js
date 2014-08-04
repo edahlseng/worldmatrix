@@ -233,7 +233,10 @@ function buildTimeline(range) {
 	    // div.innerText =  txt;
 
 	    var thumbnail = document.createElement("img");
-	    thumbnail.setAttribute('src', publishers[xPos].url);
+	    thumbnail.setAttribute('src', publishers[xPos].thumbnail);
+
+	    var idName = “#” + publishers[i].name.replace( /\W/g , '');
+	    div.setAttribute('id', idName);
 	    div.appendChild(thumbnail);
 
 	    var object = new THREE.CSS3DObject( div );
