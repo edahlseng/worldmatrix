@@ -50,7 +50,7 @@ var publishers =
  },
  {
    "name":"Jon Ferguson",
-   "url":" jonf",
+   "url":" jon",
    "thumbnail":" http://pldb.media.mit.edu/face/jonf"
  },
  {
