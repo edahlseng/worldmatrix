@@ -325,7 +325,7 @@ max-height:100%;
 			<div id="topicstatus">Tiger Woods</div>
 				<button id="table" class="highlight"><img src="img/time_btn.svg" width="80" height="80"/></button>
 				<button id="grid"><img src="img/topic_btn.svg" width="80" height="80"/></button>
-				<button id="mapbtn"><img src="img/map_btn.svg" width="80" height="80"/></button>
+				<!-- <button id="mapbtn"><img src="img/map_btn.svg" width="80" height="80"/></button> -->
 			</div>
 
 		<script>
@@ -520,7 +520,7 @@ max-height:100%;
 					}
 					objects.push( object );
 
-					maxPos = (!maxPos || uielem.xPos > maxPos) ? uielem.xPos : maxPos;
+					maxPos = (!maxPos || uielem.xPos] > maxPos) ? uielem.xPos : maxPos;
 					//
 					var object = new THREE.Object3D();
 
@@ -598,12 +598,12 @@ max-height:100%;
 					setButtonActive(this);
 				}, false );
 
-				var button = document.getElementById( 'mapbtn' );
-				button.addEventListener( 'touchstart', function ( event ) {
+				// var button = document.getElementById( 'mapbtn' );
+				// button.addEventListener( 'touchstart', function ( event ) {
 
-					transformToMap( 2000);
-					setButtonActive(this);
-				}, false );
+				// 	transformToMap( 2000);
+				// 	setButtonActive(this);
+				// }, false );
 
 				//
 
@@ -678,6 +678,7 @@ max-height:100%;
 
 				var adjustmentX = 2000;
 				var adjustmentY = 300;
+				
 				new TWEEN.Tween(group.position)
 					.to({x:camera.position.x - adjustmentX, y: camera.position.y - adjustmentY, z: 800}, duration)
 					.easing( TWEEN.Easing.Exponential.InOut )
@@ -693,15 +694,10 @@ max-height:100%;
 						.easing( TWEEN.Easing.Exponential.InOut )
 						.start();
 
-
 				new TWEEN.Tween(mapObject.position)
 					.to({y:ZDOWN}, d15)
 					.easing( TWEEN.Easing.Exponential.InOut )
 					.start();
-
-
-				
-				 
 				
 				new TWEEN.Tween(topicLabels.position)
 					.to({y:ZDOWN}, duration*1.2)

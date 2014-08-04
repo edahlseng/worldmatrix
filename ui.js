@@ -63,7 +63,8 @@ function _timeRange(uielems) {
 	for (var i = 0; i < length; i++) {
 		var uielem = uielems[i];
 		var news = uielem.news;
-		var d = new Date(news.timestamp);
+		// var d = new Date(news.timestamp);
+		var d = news.user;
 		if (!minTime || d < minTime)
 			minTime = d;
 		if (!maxTime || d > maxTime)
