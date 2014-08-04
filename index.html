@@ -418,10 +418,11 @@ max-height:100%;
 
 				for (var i = 0; i < uielems.length; i++) {
 					var uielem = uielems[i];
-					var myTime = new Date(uielem.news.timestamp);
-					var startTime = timeRange.min.getTime();
-					var delta = (myTime.getTime() - startTime) / (1000*60);
-					var bucket = Math.floor(delta / 120);
+					// var myTime = new Date(uielem.news.timestamp);
+					// var startTime = timeRange.min.getTime();
+					// var delta = (myTime.getTime() - startTime) / (1000*60);
+					// var bucket = Math.floor(delta / 120);
+					var bucket = uielem.news.user;
 					uielem.xPos = bucket;
 					if (!posCounter[bucket])
 						posCounter[bucket] = 0;
