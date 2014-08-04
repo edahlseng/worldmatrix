@@ -59,7 +59,7 @@ def faketrixData():
 	from random import randrange
 
 	for i in range(len(newsData['json_list'])):
-		newsData['json_list'][i]['user'] = randrange(10)
+		newsData['json_list'][i]['publisher'] = randrange(24)
 
 	return json.dumps(newsData)
 

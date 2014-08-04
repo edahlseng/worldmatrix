@@ -6,6 +6,130 @@ var MAP_MODE = 3;
 var MISC_TOPICS = -200;
 var mode = null;
 
+var publishers = 
+[
+ {
+   "name":"Business Insider",
+   "url":" http://www.businessinsider.com",
+   "thumbnail":" http://i0.wp.com/edge.alluremedia.com.au/assets/technetwork/img/businessinsider/gravatar.jpg"
+ },
+ {
+   "name":"Savannah Niles",
+   "url":" savannah",
+   "thumbnail":" http://viral.media.mit.edu/img/people/savannah.jpg"
+ },
+ {
+   "name":"Business Week",
+   "url":" http://www.businessweek.com",
+   "thumbnail":" https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRmFuAUYRoh0gZPs3jrnOx-gO-4JIlJTRLLpuI8i4EIQ-RwymR-"
+ },
+ {
+   "name":"USA Today",
+   "url":" http://www.usatoday.com",
+   "thumbnail":" http://uniq3d.files.wordpress.com/2012/09/usa-app-logo.png"
+ },
+ {
+   "name":"Eric Dahlseng",
+   "url":" dahlseng",
+   "thumbnail":" http://pldb.media.mit.edu/face/dahlseng"
+ },
+ {
+   "name":"CBS",
+   "url":" http://www.cbsnews.com",
+   "thumbnail":" http://www.threeifbyspace.net/wp-content/uploads/2013/05/cbs-logo.png"
+ },
+ {
+   "name":"Fox Sports",
+   "url":" http://www.foxsports.com",
+   "thumbnail":" http://a1.phobos.apple.com/us/r1000/035/Purple/e9/ec/f4/mzi.dwnmuumh.png"
+ },
+ {
+   "name":"Amir Lazarovich",
+   "url":" amirl",
+   "thumbnail":" http://viral.media.mit.edu/img/people/amir.jpg"
+ },
+ {
+   "name":"Jon Ferguson",
+   "url":" jonf",
+   "thumbnail":" http://pldb.media.mit.edu/face/jonf"
+ },
+ {
+   "name":"ESPN",
+   "url":" http://espn.go.com",
+   "thumbnail":" http://athletics.mtholyoke.edu/sports/news/2011-12/photos/martha_ackmann_photos/espnlogo.jpg"
+ },
+ {
+   "name":"Reuters",
+   "url":" http://www.reuters.com",
+   "thumbnail":" http://www.gunnars.com/wp-content/uploads/2014/01/Reuters-logo.jpg"
+ },
+ {
+   "name":"Huffington Post",
+   "url":" http://www.huffingtonpost.com",
+   "thumbnail":" http://malaikaforlife.org/wp-content/uploads/2013/08/huff-post.jpg"
+ },
+ {
+   "name":"Andy Lippman",
+   "url":" lip",
+   "thumbnail":" http://viral.media.mit.edu/img/people/lip.jpeg"
+ },
+ {
+   "name":"Miami Herald",
+   "url":" http://www.miamiherald.com",
+   "thumbnail":" http://www.nwdesigninc.com/images/thumb_miamiherald.jpg"
+ },
+ {
+   "name":"Washington Post",
+   "url":" http://www.washingtonpost.com",
+   "thumbnail":" http://www.kurzweilai.net/images/The-Washington-Post-logo.jpg"
+ },
+ {
+   "name":"New York Magazine",
+   "url":" http://nymag.com",
+   "thumbnail":" http://nymag.com/img/nymag-1500x1500.png"
+ },
+ {
+   "name":"LA Times",
+   "url":" http://www.latimes.com",
+   "thumbnail":" http://www.becketfund.org/wp-content/uploads/2013/02/LA-Times-logo-square-e1360163706629.jpg"
+ },
+ {
+   "name":"US Weekly",
+   "url":" http://www.usmagazine.com",
+   "thumbnail":" http://prw.memberclicks.net/assets/Press_Images/us%20weekly.png"
+ },
+ {
+   "name":"Vivian Diep",
+   "url":" vdiep",
+   "thumbnail":" http://viral.media.mit.edu/img/people/vivian.jpg"
+ },
+ {
+   "name":"Newsweek",
+   "url":" http://www.newsweek.com",
+   "thumbnail":" http://asklogo.com/images/N/newsweek%20logo.jpg"
+ },
+ {
+   "name":"Bloomberg",
+   "url":" http://www.bloomberg.com",
+   "thumbnail":" http://redalertpolitics.com/files/2013/08/Bloomberg-News-logo.jpg"
+ },
+ {
+   "name":"Telegraph",
+   "url":" http://www.telegraph.co.uk",
+   "thumbnail":" http://ny1.createit.netdna-cdn.com/wp-content/uploads/2014/01/telegraph-logo.jpg"
+ },
+ {
+   "name":"Wikipedia",
+   "url":" http://en.wikipedia.org",
+   "thumbnail":" http://tctechcrunch2011.files.wordpress.com/2010/05/wikipedia1.png"
+ },
+ {
+   "name":"Travis Rich",
+   "url":" trich",
+   "thumbnail":" http://viral.media.mit.edu/img/people/trich.jpeg"
+ }
+]
+
 function UINews(news, url, x, y) {
     this.news = news,
     this.url = url;
@@ -64,7 +188,7 @@ function _timeRange(uielems) {
 		var uielem = uielems[i];
 		var news = uielem.news;
 		// var d = new Date(news.timestamp);
-		var d = news.user;
+		var d = news.publisher;
 		if (!minTime || d < minTime)
 			minTime = d;
 		if (!maxTime || d > maxTime)
@@ -106,10 +230,12 @@ function buildTimeline(range) {
 		// }
 		// else if (hr === 18) txt = 'Evening'
 		// else if (hr === 12) txt = 'Noon';
+	    // div.innerText =  txt;
 
-		var txt = "test";
+	    var thumbnail = document.createElement("img");
+	    thumbnail.setAttribute('src', publishers[xPos].url);
+	    div.appendChild(thumbnail);
 
-	    div.innerText =  txt;
 	    var object = new THREE.CSS3DObject( div );
 		object.position.x = ( xPos * (itemWidth+xGap) ) - backset;
 		object.position.y = -itemHeight*.5;
