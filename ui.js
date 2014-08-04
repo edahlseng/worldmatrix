@@ -215,7 +215,7 @@ function buildTimeline(range) {
 	// var d  = new Date();
 	// d.setTime(range.min.getTime());
 	// var startHr = d.getHours();
-    for (var xPos = 0; xPos < numBuckets; xPos++) {
+    for (var xPos = 0; xPos <= numBuckets; xPos++) {
 		var div = document.createElement("div");
 		// var hr = (startHr + xPos * 2) % 24;
 	    div.className = 'timebar';

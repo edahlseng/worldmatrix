@@ -583,21 +583,21 @@ max-height:100%;
 				controls.noRotate = true;
 				controls.addEventListener( 'change', render );
 
-				var button = document.getElementById( 'table' );
-				button.addEventListener( 'touchstart', function ( event ) {
-					event.preventDefault();
+				// var button = document.getElementById( 'table' );
+				// button.addEventListener( 'touchstart', function ( event ) {
+				// 	event.preventDefault();
 
-					transformToPlane( targets.table, 2000 );
-					setButtonActive(this);
-				}, false );
+				// 	transformToPlane( targets.table, 2000 );
+				// 	setButtonActive(this);
+				// }, false );
 
 
-				var button = document.getElementById( 'grid' );
-				button.addEventListener( 'touchstart', function ( event ) {
-					event.preventDefault();
-					transformToHistogram( targets.grid, 2000 );
-					setButtonActive(this);
-				}, false );
+				// var button = document.getElementById( 'grid' );
+				// button.addEventListener( 'touchstart', function ( event ) {
+				// 	event.preventDefault();
+				// 	transformToHistogram( targets.grid, 2000 );
+				// 	setButtonActive(this);
+				// }, false );
 
 				// var button = document.getElementById( 'mapbtn' );
 				// button.addEventListener( 'touchstart', function ( event ) {
