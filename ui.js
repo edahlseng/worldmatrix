@@ -215,7 +215,7 @@ function buildTimeline(range) {
 	// var d  = new Date();
 	// d.setTime(range.min.getTime());
 	// var startHr = d.getHours();
-    for (var xPos = 0; xPos < numBuckets; xPos++) {
+    for (var xPos = 0; xPos <= numBuckets; xPos++) {
 		var div = document.createElement("div");
 		// var hr = (startHr + xPos * 2) % 24;
 	    div.className = 'timebar';
@@ -236,10 +236,10 @@ function buildTimeline(range) {
 	    thumbnail.setAttribute('src', publishers[xPos].thumbnail);
 	    var idName = publishers[xPos].name.replace( /\W/g , '');
 	    thumbnail.setAttribute('id', idName);
-
-	    // var idName = "#" + publishers[xPos].name.replace( /\W/g , '');
-	    // div.setAttribute('id', idName);
+	    var nameTitle = document.createElement("p");
+	    nameTitle.innerText = publishers[xPos].name;
 	    div.appendChild(thumbnail);
+	    div.appendChild(nameTitle);
 
 	    var object = new THREE.CSS3DObject( div );
 		object.position.x = ( xPos * (itemWidth+xGap) ) - backset;
