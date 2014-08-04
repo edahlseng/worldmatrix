@@ -50,7 +50,7 @@ var publishers =
  },
  {
    "name":"Jon Ferguson",
-   "url":" jonf",
+   "url":" jon",
    "thumbnail":" http://pldb.media.mit.edu/face/jonf"
  },
  {
@@ -234,12 +234,10 @@ function buildTimeline(range) {
 
 	    var thumbnail = document.createElement("img");
 	    thumbnail.setAttribute('src', publishers[xPos].thumbnail);
-
+	    var idName = publishers[xPos].name.replace( /\W/g , '');
+	    thumbnail.setAttribute('id', idName);
 	    var nameTitle = document.createElement("p");
 	    nameTitle.innerText = publishers[xPos].name;
-
-	    var idName = "#" + publishers[xPos].name.replace( /\W/g , '');
-	    div.setAttribute('id', idName);
 	    div.appendChild(thumbnail);
 	    div.appendChild(nameTitle);
 
