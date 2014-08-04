@@ -7,6 +7,7 @@ import urllib2                                      # for querying other sites f
 app = Flask(__name__)
 
 @app.route('/faketrixData')
+@crossdomain(origin='*')
 def faketrixData():
 	NEWS_URL = 'http://um.media.mit.edu:5005/news/48'
 	newsData = json.loads(urllib2.urlopen(NEWS_URL).read())
