@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>worldlens explorer</title>
+        <link href='http://fonts.googleapis.com/css?family=Quicksand|Open+Sans:300,600,700' rel='stylesheet' type='text/css'/>
+		<link rel="stylesheet" type="text/css" href="http://um-display.media.mit.edu/window/css/cards.css"/>
+
+		<style>
+		#topmenu {
+				position: absolute;
+				top: 0px;
+				right: 0px;
+				width: 100%;
+				height:68px;
+				text-align: left;
+				padding: 0;
+				margin: 0;
+				z-index: 100000;
+				background-color:black;
+				color:white;
+	vertical-align: top;
+	cursor: pointer;
+	
+	color: #fff;
+	font-family: 'Open Sans';
+	/*padding-top:10px;*/
+	/*line-height: 200px;*/
+	font-weight: 300;
+			}
+
+			#topbar {
+				position:absolute;
+				height: 68px;
+				width: 100%;
+				top: 0;
+				left: 0;
+				background: #080808;
+				z-index:115000;
+				padding-left:50px;
+			}
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+				background-color: #303336;
+				margin: 0;
+				font-family: Helvetica, sans-serif;;
+				overflow: hidden;
+			}
+
+			a {
+				color: #ffffff;
+			}
+.midnight {
+	color: gray;
+}
+.timebar .topic {
+	font-size:28px;
+	text-shadow: 1px 1px 0px black;
+}
+.timebar {
+    font-family: 'Open Sans';
+
+    width: 480px;
+    
+    padding-left:10px;
+    padding-right:10px;
+    font-size: 60px;
+    background-color:rgba(0,0,0, 0);
+    /*border-bottom: 1px white solid; */
+    text-align:center;
+    /*line-height:130px;*/
+    cursor:pointer;
+    color:white;
+    text-shadow: 0px 0px 2px #ddd;
+}
+
+
+			.previewimg {
+				/*width:100%;*/
+				
+	vertical-align:top;
+	width:100%;
+height:auto;
+max-height:100%;
+				background-color: white;
+			}
+
+			#info {
+				position: absolute;
+				width: 100%;
+				color: #ffffff;
+				padding: 5px;
+				font-family: Monospace;
+				font-size: 13px;
+				font-weight: bold;
+				text-align: center;
+				z-index: 1;
+			}
+
+			#menu {
+				position: absolute;
+				bottom: 20px;
+				width: 100%;
+				text-align: center;
+			}
+
+			.mapelement {
+				width: 480px;
+				height: 360px;
+				box-shadow: 0px 0px 12px rgba(120,255,255,0.5);
+				border: 1px solid rgba(127,255,255,0.25);
+				text-align: center;
+				cursor: default;
+			}
+
+			.element {
+				width: 480px;
+				height: 360px;
+				box-shadow: 0px 0px 12px rgba(120,255,255,0.5);
+				border: 1px solid rgba(127,255,255,0.25);
+				text-align: center;
+				cursor: default;
+				backface-visibility:hidden;
+				-webkit-backface-visibility:hidden;
+				-webkit-transform:translate3d(0,0,0);
+
+			}
+
+			/*.element:hover {
+				box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
+				border: 1px solid rgba(127,255,255,0.75);
+			}*/
+				.element .number {
+					position: absolute;
+					top: 20px;
+					right: 20px;
+					font-size: 12px;
+					color: rgba(127,255,255,0.75);
+				}
+
+				.element .symbol {
+					position: absolute;
+					top: 40px;
+					left: 0px;
+					right: 0px;
+					font-size: 60px;
+					font-weight: bold;
+					color: rgba(255,255,255,0.75);
+					text-shadow: 0 0 10px rgba(0,255,255,0.95);
+				}
+
+				.element .details {
+					position: absolute;
+					bottom: 15px;
+					left: 0px;
+					right: 0px;
+					font-size: 20px;
+					color: rgba(127,255,255,0.75);
+				}
+
+			button {
+				color: #ddd;
+				background: transparent;
+				/*border: 1px solid rgba(50,127,227,0.75);*/
+				border: none;
+				padding: 5px 10px;
+				cursor: pointer;
+			    font-family: 'Open Sans';
+				
+				
+				font-size: 30px;
+				-webkit-opacity: 0.3;
+				
+				z-index:60000;
+				
+
+			}
+
+			button.highlight {
+				/*filter: grayscale(0) drop-shadow(2px 2px 2px black);*/
+				/*-webkit-filter: grayscale(0) drop-shadow(2px 2px 2px black);*/
+				-webkit-opacity: 1;
+			}
+
+			.mapFrame {
+				width: 3200px;
+				height: 2150px;
+				border: none;
+				/*background-color: red;*/
+			}
+			
+			.wpreviewframe {
+				width:100%;
+				height:100%;
+				border:none;
+				overflow:hidden;
+				background-color: white;
+			}
+
+			.element video {
+				position:absolute;
+				width: 100%    !important;
+			    height: auto   !important;
+			    top:0px;
+			    left:0px;
+			}
+
+			#banner {
+				color:white;
+				float:left;
+			}
+			.historydesc {
+				font-size:100px;
+				color:#ddd;
+				text-shadow: 1px 1px 0px black;
+			}
+			
+			#topicstatus {
+				font-size: 25px;
+				padding-bottom: 20px;
+				color:gray;
+				display:none;
+			}
+
+			#mappy {
+				width: 6000px;
+				height:2900px;
+				/*border:5px red solid;*/
+			}
+
+
+			iframe {
+				background-color: white;
+			}			
+
+		</style>
+	</head>
+	<body>
+		<!-- <header class="ns">
+			<div class="wrapper just wf">
+				<a class="ib" href="http://viral.media.mit.edu">
+					<div id="Logo" class="ib">
+                        <img src="http://um-display.media.mit.edu/window/img/logo.png" width="32" height="32" alt="wl logo">
+					</div>
+					<h1 class="ib"><strong>WorldLens</strong> See The World Around You</h1>
+				</a>
+			</div>
+		</header>
+		 -->
+	 	<div id="topmenu" style="font-size:12px;">
+			<div class="wrapper just wf" style="position:absolute; top: 12px; left: 51px; ">
+				<a class="ib" style="" href="http://viral.media.mit.edu">
+					<div id="Logo" class="ib">
+                        <img style="position:absolute; top: 3px; left:-35px" src="http://um-display.media.mit.edu/window/img/logo.png" width="32" height="32" alt="wl logo">
+					</div>
+					<h1 class="ib"><strong>WorldLens</strong> See The World Around You</h1>
+				</a>
+			</div>
+		</div>
+
+
+
+		<script src="http://mrdoob.github.io/three.js/build/three.min.js"></script>
+		<script src="http://mrdoob.github.io/three.js/examples/js/libs/tween.min.js"></script>
+		<script src="lib/TrackballControls.js"></script>
+		<script src="http://mrdoob.github.io/three.js/examples/js/renderers/CSS3DRenderer.js"></script>
+
+		<script src="lib/underscore-1.3.3.min.js"></script>
+		<script src="lib/socket.io-0.9.10.min.js"></script>
+		<script src="lib/caress-0.1.0.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="map/datamaps.world.min.js"></script>
+<script src="map/countrycodes.js"></script>
+
+		<script>
+		
+		window.onload = function() {
+			console.log("loaded window");
+			 window.client = new Caress.Client({
+	              host: 'localhost',
+	              port: 5000
+	          });
+
+			  // var el = document.getElementById("container");
+		      // el.addEventListener("touchstart", touchStart, false);
+	          client.connect();
+		}
+
+
+
+		var itemWidth = 480; 
+		var itemHeight = 360;
+		</script>
+
+		<!-- // <script src="http://um-events.media.mit.edu:10002/socket.io/socket.io.js"></script> -->
+		<script src="http://um-events.media.mit.edu:10002/client.js"></script>
+
+		<script type="text/javascript" src="lib/hammer.min.js"></script>
+
+		<script src="util.js"></script>
+
+		<script src="news.js"></script>
+		<script src="ui.js"></script>
+		<script src="js/map.js"></script>
+		<script src="js/topics.js"></script>
+		<script src="js/history.js"></script>
+
+		<div id="container"></div>
+
+		<div id="menu">
+			<div id="topicstatus">Tiger Woods</div>
+				<button id="table" class="highlight"><img src="img/time_btn.svg" width="80" height="80"/></button>
+				<button id="grid"><img src="img/topic_btn.svg" width="80" height="80"/></button>
+				<button id="mapbtn"><img src="img/map_btn.svg" width="80" height="80"/></button>
+			</div>
+
+		<script>
+			var news = new News(step1);
+			var regraw;
+			news.setupTopics();
+			news.query();
+
+			function step1(raw) {
+				regraw = raw;
+				news.getMapData(step2);	
+			}
+
+			function step2(mapraw) {
+				ready(regraw, mapraw);
+				regraw = null;
+			}
+			
+
+			var uielems = [];
+			
+			var xGap = 120;
+			var yGap = 90;
+			var rowSize = 100;
+
+			var posCounter = {};
+
+			var group;
+			var timeline;
+			var topicLabels;
+
+			var mapObject = new THREE.Object3D();
+
+			// var histTranslation;
+
+			var countries;
+			var topicCount;
+
+
+			function getQueryParams(qs) {
+			    qs = qs.split("+").join(" ");
+
+			    var params = {}, tokens,
+		        re = /[?&]?([^=]+)=([^&]*)/g;
+
+			    while (tokens = re.exec(qs)) {
+			        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+			    }
+			    return params;
+			}
+			
+			
+			var query = getQueryParams(document.location.search);
+			// alert(query.livetest);
+			var scaleFactor = (query.livetest) ? parseInt(query.livetest) / 100.0 : 1;
+			
+			// var scaleFactor = (window.location.href.indexOf("livetest") >= 0) ? .35 : 1;
+
+			function ready(raw, mapraw) {
+				console.log("news loaded");
+				var results = raw.json_list;
+				var tIndex = 0;
+
+				console.log(timeRange);
+
+				for (var i = 0; i < results.length * scaleFactor; i++) {
+					var newsEv = results[i];
+					// console.log(newsEv);
+					var gfx = getGraphic(newsEv);
+					if (gfx) {
+						var y = Math.floor(tIndex / rowSize);
+						var x = (tIndex % rowSize);
+						var uielem = new UINews(newsEv, gfx, x, y);
+						uielems.push(uielem);
+						tIndex++;
+					}
+					// console.log(gfx);
+				}
+
+				function elemsort(a, b){
+					if (a.news.related.length > b.news.related.length)
+						return -1;
+					else return 1;
+				}
+				
+				uielems.sort(elemsort);
+
+				var timeRange = _timeRange(uielems);
+
+
+				for (var i = 0; i < uielems.length; i++) {
+					var uielem = uielems[i];
+					var myTime = new Date(uielem.news.timestamp);
+					var startTime = timeRange.min.getTime();
+					var delta = (myTime.getTime() - startTime) / (1000*60);
+					var bucket = Math.floor(delta / 120);
+					uielem.xPos = bucket;
+					if (!posCounter[bucket])
+						posCounter[bucket] = 0;
+					uielem.yPos = posCounter[bucket]++; // Math.floor(uielem.news.related.length * .0625);
+				}
+				
+				init();
+
+				animate();
+				populateZ(uielems);
+				var startTime = buildTimeline(timeRange);
+				console.log("start", startTime);
+
+				mapDataReady(mapraw);
+				// mapObject = buildMap(uielems);
+				// countries = setupMapTargets(uielems);
+				// 
+
+				transformToPlane( targets.table, 0 );
+
+			}
+
+			var camera, scene, renderer;
+			var controls;
+
+			var objects = [];
+			var targets = { table: [], grid: [] };
+			var backset;
+			
+			function init() {
+				var far = 11000;
+
+				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, far );
+				camera.position.z = 3000;
+
+				scene = new THREE.Scene();
+				group = new THREE.Object3D();
+				timeline = new THREE.Object3D();
+				topicLabels = new THREE.Object3D();
+
+				// table
+				var maxPos;
+				backset = 0;
+				for ( var i = 0; i < uielems.length; i ++ ) {
+					var uielem = uielems[i];
+
+					var element = document.createElement( 'div' );
+					element.className = 'element';
+					element.style.backgroundColor = 'rgba(0,127,227,' + ( Math.random() * 0.5 + 0.25 ) + ')';
+
+					element.onclick = function() {
+						console.log(this);
+					};
+
+					var symbol = document.createElement( 'img' );
+
+					symbol.addEventListener('touchstart', imgTouchStart);
+					symbol.addEventListener('touchmove', imgMoveStart);
+
+					symbol.className = 'previewimg';
+					var force1 = uielem.url.indexOf("meet-the-biggest-carnivorous-dinosaur-ever-found-in-europe-20140306-hvgbh") >=0 ;
+					if (force1) {
+						symbol.src = "http://img.youtube.com/vi/XPhXX7SdybI/0.jpg";
+						uielem.url = "http://img.youtube.com/vi/XPhXX7SdybI/0.jpg";
+					} else {
+						symbol.src = uielem.url;
+					}
+					element.appendChild( symbol );
+
+					var details = document.createElement( 'div' );
+					details.className = 'details';
+					// details.innerHTML = table[ i + 1 ] + '<br>' + table[ i + 2 ];
+					element.appendChild( details );
+
+					var object = new THREE.CSS3DObject( element );
+					object.position.x = Math.random() * 4000 - 2000;
+					object.position.y = Math.random() * 4000 - 2000;
+					object.position.z = Math.random() * 4000 - 2000;
+
+					addToXYStack(uielem.xPos, uielem.yPos, object);
+
+					var topicData = matchToTopic(uielem.news, news.topics);
+					uielem.topic = topicData.title;
+					addToTopicStack(uielem.topic, object);
+					// console.log(uielem.topic, "topicc");
+
+					element.obj = object;
+
+					group.add( object );
+
+					var vidUrl = getVideo(uielem.news);
+					if (force1) {
+						element.vidUrl = "http://um-crawler.media.mit.edu/YTXPhXX7SdybI/YTXPhXX7SdybI_high.mp4";
+					} else if (vidUrl) {
+						element.vidUrl = vidUrl;
+					}
+					objects.push( object );
+
+					maxPos = (!maxPos || uielem.xPos > maxPos) ? uielem.xPos : maxPos;
+					//
+					var object = new THREE.Object3D();
+
+					
+					object.position.x = ( uielem.xPos * (itemWidth+xGap) ) - backset;
+					object.position.y =  ( uielem.yPos * (itemHeight+yGap) ) + 100;
+				
+					targets.table.push( object );
+				}
+				group.position.x -= maxPos *(itemWidth+xGap) *.5
+				timeline.position.x = group.position.x;
+				scene.add(group);
+
+				news.topics = filterTopics();
+
+				var topics = news.topics;
+
+				 // ["Legal", "Business",  "Religion",   "Healthcare", "Disaster",  "Tech", "Science",  "Violence", "Middle East", "Asia", "Europe", "Africa", "USA", "Elections", "Animals", "Sports", "Entertainment", "South America"];
+				topicCount = {};
+
+				for ( var i = 0; i < objects.length; i ++ ) {
+					var uielem = uielems[i];
+					
+					var object = new THREE.Object3D();
+					// var topic = uielem.news.topic;
+					var topic = uielem.topic;
+					var topicIndex = news.topics.indexOf(topic);
+					if (topicIndex < 0) {
+						topicIndex = MISC_TOPICS;
+					}
+					var xPos = topicIndex;
+
+					object.position.x = ( topicIndex * (itemWidth+xGap) ) - backset;
+					object.position.y = 0; //( - ( Math.floor( i / 5 ) % 5 ) * 400 ) + 800;
+					if (!topicCount[topic]) topicCount[topic] = 0;
+					object.position.z = ( topicCount[topic]++ ) * ZSPACING - 1500; //2000;
+					targets.grid.push( object );
+
+				}
+
+				//var tmax = maxTopicCount(topicCount);
+
+				// todo, 
+				buildTopicLabels(topics, topicCount);
+				topicLabels.position.x = timeline.position.x;
+				//
+
+				renderer = new THREE.CSS3DRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.domElement.style.position = 'absolute';
+				document.getElementById( 'container' ).appendChild( renderer.domElement );
+
+				//
+
+				controls = new THREE.TrackballControls( camera, renderer.domElement );
+				controls.rotateSpeed = 0.5;
+				controls.minDistance = 2400;
+				controls.maxDistance = far - 2000;
+				controls.noRotate = true;
+				controls.addEventListener( 'change', render );
+
+				var button = document.getElementById( 'table' );
+				button.addEventListener( 'touchstart', function ( event ) {
+					event.preventDefault();
+
+					transformToPlane( targets.table, 2000 );
+					setButtonActive(this);
+				}, false );
+
+
+				var button = document.getElementById( 'grid' );
+				button.addEventListener( 'touchstart', function ( event ) {
+					event.preventDefault();
+					transformToHistogram( targets.grid, 2000 );
+					setButtonActive(this);
+				}, false );
+
+				var button = document.getElementById( 'mapbtn' );
+				button.addEventListener( 'touchstart', function ( event ) {
+
+					transformToMap( 2000);
+					setButtonActive(this);
+				}, false );
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+			}
+
+
+
+			function showHidden() {
+				var len = objects.length;
+				for ( var i = 0; i < len; i ++ ) {
+					var object = objects[ i ];
+					 if (object.element.style.display === 'none'){
+						object.element.style.display = '';
+
+					}
+				}
+
+			}
+
+			var ZDOWN = -10000;
+
+			function transformToMap(duration) {
+				mapObject.element.style.display = '';
+				mode = MAP_MODE;
+				// TODO hide all other element;
+				removeHistory();
+				cleanUpMap();
+
+				new TWEEN.Tween(topicLabels.position)
+					.to({y:ZDOWN}, duration*1.2)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+
+				new TWEEN.Tween(timeline.position)
+					.to({y:ZDOWN}, duration*1.2)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+
+				new TWEEN.Tween(group.position)
+					.to({y:ZDOWN}, duration*1.2)
+					.easing( TWEEN.Easing.Exponential.InOut )
+
+					.start();
+				
+				// new TWEEN.Tween(mapObject.position)
+					// .to({y:0}, duration*1.5)
+					// .easing( TWEEN.Easing.Exponential.InOut )
+					// .start();
+
+				new TWEEN.Tween(mapObject.position)
+					.to({x:camera.position.x, y: camera.position.y}, duration * 1.5)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+
+				new TWEEN.Tween( this )
+					.to( {}, duration * 1.6 )
+					.onUpdate( render )
+					.easing( TWEEN.Easing.Exponential.InOut )
+
+					.start();
+
+				clearDescription();
+			}
+
+			function transformToPlane( targets, duration ) {
+				mode = PLANE_MODE;
+				TWEEN.removeAll();
+				var d15 = duration * 1.5;
+
+				removeHistory();
+
+				var adjustmentX = 2000;
+				var adjustmentY = 300;
+				new TWEEN.Tween(group.position)
+					.to({x:camera.position.x - adjustmentX, y: camera.position.y - adjustmentY, z: 800}, duration)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+
+				new TWEEN.Tween(timeline.position)
+						.to({x:camera.position.x - adjustmentX, y:camera.position.y - adjustmentY, z: 800}, duration*1.5)
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+				new TWEEN.Tween(group.rotation)
+						.to({x:0}, d15)
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+
+				new TWEEN.Tween(mapObject.position)
+					.to({y:ZDOWN}, d15)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+
+
+				
+				 
+				
+				new TWEEN.Tween(topicLabels.position)
+					.to({y:ZDOWN}, duration*1.2)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+				
+
+				// if (group.position.y > -1000) {
+
+				// 	new TWEEN.Tween(group.position)
+				// 		.to({y:0, z: 0},duration*1.5)
+				// 		.easing( TWEEN.Easing.Exponential.InOut )
+				// 		.start();
+
+					
+				// }
+
+
+				var len = objects.length;
+				for ( var i = 0; i < len; i ++ ) {
+
+					var object = objects[ i ];
+					var target = targets[ i ];
+
+					if (object.isRelatedElement) {
+						object.element.style.display = '';
+
+					} 
+					object.element.style.zIndex = target.position.z;
+
+					new TWEEN.Tween( object.position )
+						.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+					new TWEEN.Tween( object.rotation )
+						.to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+				}
+
+				new TWEEN.Tween( this )
+					.to( {}, duration * 2 )
+					.onUpdate( render )
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+
+				clearDescription();
+
+			}
+
+			function transformToHistogram( targets, duration ) {
+				mode = HIST_MODE;
+				TWEEN.removeAll();
+
+				removeHistory();
+
+				var len = objects.length;
+				var d15 = duration * 1.5;
+				// group.applyMatrix(histTranslation);
+				new TWEEN.Tween(mapObject.position)
+					.to({y:ZDOWN}, d15)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+
+
+				// new TWEEN.Tween(group.position)
+					// .to({y:600, z: 500}, d15)
+					// .easing( TWEEN.Easing.Exponential.InOut )
+					// .start();
+				var adjustmentX = 2500;
+				var adjustmentY = 700;
+				var offsetTLabels = 700;
+				new TWEEN.Tween(group.position)
+					.to({x:camera.position.x - adjustmentX, y: camera.position.y+adjustmentY, z: 500}, duration * .85)
+					.easing( TWEEN.Easing.Exponential.InOut )
+
+					.start();
+				new TWEEN.Tween(topicLabels.position)
+					.to({x:camera.position.x -adjustmentX, y: camera.position.y-offsetTLabels+adjustmentY}, duration*.85)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+				new TWEEN.Tween(group.rotation)
+					.to({x:-.4}, d15)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+
+				new TWEEN.Tween(timeline.position)
+					.to({y:ZDOWN}, d15)
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+
+				
+
+
+
+				for ( var i = 0; i < len; i ++ ) {
+
+					var object = objects[ i ];
+					var target = targets[ i ];
+
+					if (target.position.z < -3000) {
+						object.element.style.display = 'none';
+					} 
+					object.element.style.zIndex = target.position.z;
+					
+					new TWEEN.Tween( object.position )
+						.to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+					new TWEEN.Tween( object.rotation )
+						.to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
+						.easing( TWEEN.Easing.Exponential.InOut )
+						.start();
+
+				}
+
+				new TWEEN.Tween( this )
+					.to( {}, duration * 2 )
+					.onUpdate( render )
+					.start();
+
+				clearDescription();
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				render();
+			}
+
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				TWEEN.update();
+
+				controls.update();
+
+			}
+
+			function render() {
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,135 @@
+<html>
+<body style="overflow:hidden">
+<div id='container'>
+</div>
+<script src="../lib/underscore-1.3.3.min.js"></script>
+<script src="../lib/socket.io-0.9.10.min.js"></script>
+<script src="../lib/caress-0.1.0.js"></script>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="datamaps.world.min.js"></script>
+<script src="countrycodes.js"></script>
+<div id="container" style="position: relative; width: 3200px; height: 2150px; overflow:hidden"></div>
+<script>
+var client = new Caress.Client({
+  host: 'localhost',
+  port: 5000
+});
+
+              // var el = document.getElementById("container");
+              // el.addEventListener("touchstart", touchStart, false);
+client.connect();
+
+// var container = document.getElementById('container');
+// container.addEventListener('touchstart', testTouch);
+
+function testTouch(e,data) {
+    console.log(e,data);
+    this.click(e);
+}
+
+function testClick(e) {
+    console.log(e);
+}
+
+var ready = false;
+var zzmeDataMap;
+    var map = new Datamap({
+        element: document.getElementById('container'),
+        fills: {
+            defaultFill: '#7f8c8d' ,
+            authorHasTraveledTo: "#fa0fa0",
+            LOW: '#1f77b4',
+            MEDIUM: '#e67e22',
+            HIGH: '#e74c3c',
+
+        },
+        
+        geographyConfig: {
+            borderWidth: 0,
+            popupOnHover: false, //disable the popup while hovering
+
+            highlightOnHover: true
+		},
+		done: function(datamap) {
+            ready=true;
+            var stuff = datamap.svg.selectAll('.datamaps-subunit');
+            console.log(stuff);
+            zstuff=stuff[0];
+     	    datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+                var country = geography.properties.name;
+                console.log(country, "YOOO");
+                if (parent && parent.countryClick) {
+                    // if (country.indexOf("of America"))
+                        // country = "United States";
+                	parent.countryClick(country);
+                }
+            });
+
+        }
+	});
+
+    var colors = d3.scale.category10();
+
+    function onKeyPress(x) {
+    	parent.onKeyPress(x);
+    }
+
+    function processData(data) {
+        console.log("proccesing data", data);
+        console.log("isready", ready);
+        var test = { "RUS" : map.options.fills.LOW, "USA" : map.options.fills.HIGH } ;
+
+
+        var countryScores = {};
+
+        var datalen = data.length;
+        for (var i = 0; i < datalen; i++) {
+            var uielem = data[i];
+            var obj = uielem.news;
+            for (var j in obj.entities) {
+                var ent = obj.entities[j];
+                if (ent.type === 'Country') {
+                    
+                    var c = ent.value;
+
+                    if (!countryScores[c])
+                        countryScores[c] = 1;
+                    else
+                        countryScores[c] += 1;
+                    // console.log(ent.value);
+                    // var cCode = countryCodes[ent.value.toLowerCase()];
+                    // console.log(cCode, "filling");
+                }
+            }
+        }
+
+        var mapping = {};
+        for (var country in countryScores) {
+            if (! (country in countryCodes )) {
+                console.log("NEED TO ADD CODE FOR", country);
+            } else {
+                var score = countryScores[country];
+                var code = countryCodes[country];
+                var scoreColor = map.options.fills.LOW;
+                if (score >= 3)
+                    scoreColor = map.options.fills.HIGH;
+                else if (score == 2)
+                    scoreColor = map.options.fills.MEDIUM;
+
+                mapping[code] = scoreColor;
+            }
+        }
+        console.log(mapping);
+        console.log(countryScores);
+        map.updateChoropleth(mapping);
+
+        
+    }
+
+    window.onkeypress = onKeyPress;
+
+</script>
+</body>
+</html>
