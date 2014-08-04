@@ -234,9 +234,11 @@ function buildTimeline(range) {
 
 	    var thumbnail = document.createElement("img");
 	    thumbnail.setAttribute('src', publishers[xPos].thumbnail);
+	    var idName = publishers[xPos].name.replace( /\W/g , '');
+	    thumbnail.setAttribute('id', idName);
 
-	    var idName = "#" + publishers[xPos].name.replace( /\W/g , '');
-	    div.setAttribute('id', idName);
+	    // var idName = "#" + publishers[xPos].name.replace( /\W/g , '');
+	    // div.setAttribute('id', idName);
 	    div.appendChild(thumbnail);
 
 	    var object = new THREE.CSS3DObject( div );
