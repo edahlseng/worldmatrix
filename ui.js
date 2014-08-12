@@ -555,7 +555,7 @@ function iframeTouchMove(ev) {
 	} else {
 		var dy = Math.abs(ev.clientY - initialTouch.y);
 		var dx = Math.abs(ev.clientX - initialTouch.x);
-		if (dy > 10 || dx > 50)
+		if (dy > 50 || dx > 50)
 		{
 			startDragging(this);
 		}
@@ -673,5 +673,6 @@ function dragMove(e)
 
 function dragEnd(e)
 {
+	console.log("shrinking");
 	shrink(this.parentNode);
 }
