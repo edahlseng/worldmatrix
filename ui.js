@@ -542,8 +542,12 @@ function iframeTouchMove(ev) {
 	} else {
 
 		var dY = -2*(ev.clientY - lastIMoveY);
-		this.contentWindow.scrollBy(0, dY);
-		lastIMoveY = ev.clientY;
+		// this.contentWindow.scrollBy(0, dY);
+		// lastIMoveY = ev.clientY;
+		if (dY > 10)
+		{
+			startDragging(this);
+		}
 	}
 	// console.log("iframe touch move", ev);
 }
@@ -567,8 +571,6 @@ function contentTouchStart(ev) {
 
 	lastITime = now;
 }
-
-
 
 function shrink(elem) {
 	var duration = 500;
@@ -602,4 +604,48 @@ function shrink(elem) {
 		.start();
 }
 
+function startDragging(elem)
+{
+	var duration = 500;
+	var $elem = $(elem);
+	var size = {width: $elem.width(), height: $elem.height()};
+	var obj = elem.obj;
 
+	// remove any stuff
+    $elem.children("iframe").remove();
+    $elem.children("video").remove();
+	$elem.children("img").show();
+	
+	new TWEEN.Tween(size)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.to({width: 500, height: 375}, duration)
+		.onUpdate(function() {
+			elem.style.width = this.width + "px";
+			elem.style.height = this.height + "px";
+		})
+		.start();
+
+	new TWEEN.Tween( this )
+		.to( {}, duration * 1.05)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.onUpdate( render )
+		.start();
+
+	// set & remove some handlers
+	elem.removeEventListener("touchmove", iframeTouchMove);
+	elem.addEventListener("touchMove", dragMove);
+	elem.addEventListener("touchEnd", function () {console.log("touch is coming to an end");});
+}
+
+function dragMove(e)
+{
+	var duration = 05;
+	var $elem = $(elem);
+	var size = {width: $elem.width(), height: $elem.height()};
+	var obj = elem.obj;
+
+	new TWEEN.Tween(obj.position)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.to({x: e.clientX - 100, y:e.clientY - 100}, duration)
+		.start();
+}
