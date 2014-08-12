@@ -583,7 +583,7 @@ function contentTouchStart(ev) {
 	lastITime = now;
 }
 
-function shrink(elem) {
+function shrink(elem, position) {
 	var duration = 500;
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
@@ -594,9 +594,15 @@ function shrink(elem) {
     $elem.children("video").remove();
 	$elem.children("img").show();
 
+	if (poisition) {
+		position.z = obj.position.z - zMove;
+	} else {
+		position = {z: obj.position.z - zMove};
+	}
+
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.Out)
-		.to({z: obj.position.z - zMove}, duration)
+		.to(position, duration)
 		.start();
 	
 	new TWEEN.Tween(size)
@@ -615,6 +621,8 @@ function shrink(elem) {
 		.start();
 }
 
+var startingPosition;
+
 function startDragging(theIFrame)
 {
 	var elem = theIFrame.parentNode;
@@ -623,6 +631,8 @@ function startDragging(theIFrame)
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
 	var obj = elem.obj;
+
+	startingPosition = obj.position;
 
 	// set back to thumbnail image
  //    $elem.children("iframe").remove();
@@ -676,5 +686,5 @@ function dragMove(e)
 function dragEnd(e)
 {
 	console.log("drag ended");
-	shrink(this.parentNode);
+	shrink(this.parentNode, startingPosition);
 }
