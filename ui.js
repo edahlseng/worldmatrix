@@ -641,32 +641,32 @@ function startDragging(theIFrame, e)
 
 	console.log("we are going to start to drag");
 	
-	var newPositionOffsetX = e.clientX - 100 - 300;
-	var newPositionOffsetY = e.clientY - 100 - 800;
+	var newPositionOffsetX = e.clientX - 100;
+	var newPositionOffsetY = (parseInt(elem.style.height) - e.clientY) - 100;
 	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
 
 	console.log("old position", obj.position);
 	console.log("newPosition", newPosition);
 
-	// new TWEEN.Tween(obj.position)
-	// 	.easing(TWEEN.Easing.Quadratic.Out)
-	// 	.to(newPosition, duration)
-	// 	.start();
+	new TWEEN.Tween(obj.position)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.to(newPosition, duration)
+		.start();
 
-	// new TWEEN.Tween(size)
-	// 	.easing(TWEEN.Easing.Quadratic.Out)
-	// 	.to({width: 500, height: 375}, duration)
-	// 	.onUpdate(function() {
-	// 		elem.style.width = this.width + "px";
-	// 		elem.style.height = this.height + "px";
-	// 	})
-	// 	.start();
+	new TWEEN.Tween(size)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.to({width: 500, height: 375}, duration)
+		.onUpdate(function() {
+			elem.style.width = this.width + "px";
+			elem.style.height = this.height + "px";
+		})
+		.start();
 
-	// new TWEEN.Tween( this )
-	// 	.to( {}, duration * 1.05)
-	// 	.easing(TWEEN.Easing.Quadratic.Out)
-	// 	.onUpdate( render )
-	// 	.start();
+	new TWEEN.Tween( this )
+		.to( {}, duration * 1.05)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.onUpdate( render )
+		.start();
 
 	// set & remove some handlers
 	console.log(theIFrame);
@@ -690,29 +690,26 @@ function dragMove(e)
 	var obj = elem.obj;
 
 	console.log("object's position", obj.position);
-	console.log("object's size", elem.style.height);
+	console.log("object's size", );
 	console.log("e.clientX", e.clientX);
 	console.log("e.clientY", e.clientY);
 
 	var newPositionOffsetX = e.clientX - 100;
-	var newPositionOffsetY = e.clientY - 100;
+	var newPositionOffsetY = (parseInt(elem.style.height) - e.clientY) - 100;
 
 	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
 
-	obj.position.x += 1;
-	obj.position.y += 1;
 
+	new TWEEN.Tween(obj.position)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.to(newPosition, duration)
+		.start();
 
-	// new TWEEN.Tween(obj.position)
-	// 	.easing(TWEEN.Easing.Quadratic.Out)
-	// 	.to(newPosition, duration)
-	// 	.start();
-
-	// new TWEEN.Tween( this )
-	// 	.to( {}, duration * 1.05)
-	// 	.easing(TWEEN.Easing.Quadratic.Out)
-	// 	.onUpdate( render )
-	// 	.start();	
+	new TWEEN.Tween( this )
+		.to( {}, duration * 1.05)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.onUpdate( render )
+		.start();	
 }
 
 function dragEnd(e)
