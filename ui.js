@@ -645,6 +645,9 @@ function startDragging(theIFrame, e)
 	var newPositionOffsetY = e.clientY - 100;
 	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
 
+	console.log("old position", obj.position);
+	console.log("newPosition", newPosition);
+
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.Out)
 		.to(newPosition, duration)
@@ -695,6 +698,12 @@ function dragMove(e)
 		.easing(TWEEN.Easing.Quadratic.Out)
 		.to(newPosition, duration)
 		.start();
+
+	new TWEEN.Tween( this )
+		.to( {}, duration * 1.05)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.onUpdate( render )
+		.start();	
 }
 
 function dragEnd(e)
