@@ -655,6 +655,8 @@ function startDragging(theIFrame)
 
 function dragMove(e)
 {
+	elem = this.parentNode;
+	
 	console.log('drag is Moving');
 	e.preventDefault();
 	e.stopPropagation();
