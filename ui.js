@@ -456,7 +456,7 @@ function expand(elem) {
 	var obj = elem.obj;
 
 	// ERIC ADDED:
-	startingPosition = obj.position;
+	startingPosition = {x:obj.position.x, y:obj.position.y};
 
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.In)
