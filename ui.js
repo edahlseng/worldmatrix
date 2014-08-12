@@ -615,8 +615,10 @@ function shrink(elem) {
 		.start();
 }
 
-function startDragging(elem)
+function startDragging(theIFrame)
 {
+	var elem = theIFrame.parentNode;
+
 	var duration = 500;
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
@@ -652,6 +654,10 @@ function startDragging(elem)
 
 function dragMove(e)
 {
+	ev.preventDefault();
+	ev.stopPropagation();
+	zframe = this;
+
 	var duration = 05;
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
