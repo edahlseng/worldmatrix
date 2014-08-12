@@ -693,8 +693,8 @@ function dragMove(e)
 	console.log("e.clientX", e.clientX);
 	console.log("e.clientY", e.clientY);
 
-	var newPositionOffsetY = e.clientX - 100;
-	var newPositionOffsetX = e.clientY - 100;
+	var newPositionOffsetX = e.clientX - 100;
+	var newPositionOffsetY = e.clientY - 100;
 
 	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
 
