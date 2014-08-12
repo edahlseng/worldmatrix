@@ -519,6 +519,9 @@ function showContent(elem) {
 		    imgTags.hide();
 		    video.addEventListener('touchstart', contentTouchStart);
 
+		    // ERIC added:
+		    video.addEventListener('touchmove', iframeTouchMove);
+
 		    elem.appendChild(video);
         }
         console.warn(" *** no image tag!");
@@ -531,20 +534,28 @@ function showContent(elem) {
 var lastITime;
 
 var lastIMoveY = null;
+var initialTouch;
 
 function iframeTouchMove(ev) {
 	ev.preventDefault();
 	ev.stopPropagation();
 	zframe = this;
 
-	if (!lastIMoveY) {
-		lastIMoveY = ev.clientY;
-	} else {
+	//if (!lastIMoveY) {
+	//	lastIMoveY = ev.clientY;
+	//} else {
 
-		var dY = -2*(ev.clientY - lastIMoveY);
+	//	var dY = -2*(ev.clientY - lastIMoveY);
 		// this.contentWindow.scrollBy(0, dY);
 		// lastIMoveY = ev.clientY;
-		if (dY > 10)
+	//}
+	if (!initialTouch)
+	{
+		initialTouch = {x:ev.clientX, y:ev.clientY};
+	} else {
+		var dy = Math.abs(ev.clientY - initialTouch.y);
+		var dx = Math.abs(ev.clientX - initialTouch.x);
+		if (dy > 10 || dx > 10)
 		{
 			startDragging(this);
 		}
