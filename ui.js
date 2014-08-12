@@ -673,6 +673,6 @@ function dragMove(e)
 
 function dragEnd(e)
 {
-	console.log("shrinking");
+	console.log("drag ended");
 	shrink(this.parentNode);
 }
