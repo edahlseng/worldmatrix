@@ -626,6 +626,8 @@ function startDragging(elem)
     $elem.children("iframe").remove();
     $elem.children("video").remove();
 	$elem.children("img").show();
+
+	console.log("we are going to start to drag");
 	
 	new TWEEN.Tween(size)
 		.easing(TWEEN.Easing.Quadratic.Out)
