@@ -689,21 +689,29 @@ function dragMove(e)
 	var size = {width: $elem.width(), height: $elem.height()};
 	var obj = elem.obj;
 
+	console.log("object's position", obj.position);
+	console.log("e.clientX", e.clientX);
+	console.log("e.clientY", e.clientY);
+
 	var newPositionOffsetY = e.clientX - 100;
 	var newPositionOffsetX = e.clientY - 100;
 
 	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
 
-	new TWEEN.Tween(obj.position)
-		.easing(TWEEN.Easing.Quadratic.Out)
-		.to(newPosition, duration)
-		.start();
+	obj.position.x += newPositionOffsetX;
+	obj.position.y += newPositionOffsetY;
 
-	new TWEEN.Tween( this )
-		.to( {}, duration * 1.05)
-		.easing(TWEEN.Easing.Quadratic.Out)
-		.onUpdate( render )
-		.start();	
+
+	// new TWEEN.Tween(obj.position)
+	// 	.easing(TWEEN.Easing.Quadratic.Out)
+	// 	.to(newPosition, duration)
+	// 	.start();
+
+	// new TWEEN.Tween( this )
+	// 	.to( {}, duration * 1.05)
+	// 	.easing(TWEEN.Easing.Quadratic.Out)
+	// 	.onUpdate( render )
+	// 	.start();	
 }
 
 function dragEnd(e)
