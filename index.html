@@ -427,6 +427,10 @@ max-height:100%;
 
 				var timeRange = _timeRange(uielems);
 
+				function getBucketPosition(publisherName){
+					console.log ("publisherName: " + publisherName);
+					return publisherName
+				}
 
 				for (var i = 0; i < uielems.length; i++) {
 					var uielem = uielems[i];
@@ -434,7 +438,7 @@ max-height:100%;
 					// var startTime = timeRange.min.getTime();
 					// var delta = (myTime.getTime() - startTime) / (1000*60);
 					// var bucket = Math.floor(delta / 120);
-					var bucket = uielem.news.publisher;
+					var bucket = getBucketPosition(uielem.news.publisher);
 					uielem.xPos = bucket;
 					if (!posCounter[bucket])
 						posCounter[bucket] = 0;
