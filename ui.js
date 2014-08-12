@@ -559,7 +559,7 @@ function iframeTouchMove(ev) {
 		var dx = Math.abs(ev.clientX - initialTouch.x);
 		if (dy > 50 || dx > 50)
 		{
-			startDragging(this);
+			startDragging(this, ev);
 		}
 	}
 	// console.log("iframe touch move", ev);
@@ -625,7 +625,7 @@ function shrink(elem, position) {
 
 var startingPosition;
 
-function startDragging(theIFrame)
+function startDragging(theIFrame, e)
 {
 	var elem = theIFrame.parentNode;
 
