@@ -718,6 +718,6 @@ function dragMove(e)
 function dragEnd(e)
 {
 	console.log("drag ended");
-	console.log("old position", startingPosition);
 	shrink(this.parentNode, startingPosition);
+	currElem = null;
 }
