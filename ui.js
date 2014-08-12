@@ -698,8 +698,8 @@ function dragMove(e)
 
 	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
 
-	obj.position.x += newPositionOffsetX;
-	obj.position.y += newPositionOffsetY;
+	// obj.position.x += newPositionOffsetX;
+	// obj.position.y += newPositionOffsetY;
 
 
 	// new TWEEN.Tween(obj.position)
