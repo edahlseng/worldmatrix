@@ -642,7 +642,7 @@ function startDragging(theIFrame, e)
 	console.log("we are going to start to drag");
 	
 	var newPositionOffsetX = e.clientX - 100;
-	var newPositionOffsetY = e.clientY - 100;
+	var newPositionOffsetY = e.clientY - 100 + 500;
 	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
 
 	console.log("old position", obj.position);
