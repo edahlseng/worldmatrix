@@ -648,7 +648,7 @@ function startDragging(theIFrame)
 
 	// set & remove some handlers
 	console.log(theIFrame);
-	theIFrame.removeEventListner("touchmove", iframeTouchMove);
+	theIFrame.removeEventListener("touchmove", iframeTouchMove);
 	theIFrame.addEventListener("touchmove", dragMove);
 	theIFrame.addEventListener("touchend", dragEnd);
 }
