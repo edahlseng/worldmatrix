@@ -629,7 +629,7 @@ function startDragging(theIFrame)
 {
 	var elem = theIFrame.parentNode;
 
-	var duration = 500;
+	var duration = 300;
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
 	var obj = elem.obj;
@@ -641,6 +641,15 @@ function startDragging(theIFrame)
 
 	console.log("we are going to start to drag");
 	
+	var newPositionOffsetX = e.clientX - 100;
+	var newPositionOffsetY = e.clientY - 100;
+	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
+
+	new TWEEN.Tween(obj.position)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.to(newPosition, duration)
+		.start();
+
 	new TWEEN.Tween(size)
 		.easing(TWEEN.Easing.Quadratic.Out)
 		.to({width: 500, height: 375}, duration)
@@ -677,9 +686,14 @@ function dragMove(e)
 	var size = {width: $elem.width(), height: $elem.height()};
 	var obj = elem.obj;
 
+	var newPositionOffsetY = e.clientX - 100;
+	var newPositionOffsetX = e.clientY - 100;
+
+	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
+
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.Out)
-		.to({x: e.clientX - 100, y:e.clientY - 100}, duration)
+		.to(newPosition, duration)
 		.start();
 }
 
