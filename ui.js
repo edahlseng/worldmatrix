@@ -654,11 +654,11 @@ function startDragging(theIFrame)
 
 function dragMove(e)
 {
-	ev.preventDefault();
-	ev.stopPropagation();
+	e.preventDefault();
+	e.stopPropagation();
 	zframe = this;
 
-	var duration = 05;
+	var duration = 10;
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
 	var obj = elem.obj;
