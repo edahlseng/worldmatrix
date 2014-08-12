@@ -555,7 +555,7 @@ function iframeTouchMove(ev) {
 	} else {
 		var dy = Math.abs(ev.clientY - initialTouch.y);
 		var dx = Math.abs(ev.clientX - initialTouch.x);
-		if (dy > 10 || dx > 10)
+		if (dy > 10 || dx > 50)
 		{
 			startDragging(this);
 		}
@@ -647,9 +647,9 @@ function startDragging(theIFrame)
 		.start();
 
 	// set & remove some handlers
-	elem.removeEventListener("touchmove", iframeTouchMove);
-	elem.addEventListener("touchmove", dragMove);
-	elem.addEventListener("touchend", dragEnd);
+	theIFrame.removeEventListener("touchmove", iframeTouchMove);
+	theIFrame.addEventListener("touchmove", dragMove);
+	theIFrame.addEventListener("touchend", dragEnd);
 }
 
 function dragMove(e)
