@@ -625,9 +625,9 @@ function startDragging(theIFrame)
 	var obj = elem.obj;
 
 	// set back to thumbnail image
-    $elem.children("iframe").remove();
-    $elem.children("video").remove();
-	$elem.children("img").show();
+ //    $elem.children("iframe").remove();
+ //    $elem.children("video").remove();
+	// $elem.children("img").show();
 
 	console.log("we are going to start to drag");
 	
@@ -648,8 +648,9 @@ function startDragging(theIFrame)
 
 	// set & remove some handlers
 	console.log(theIFrame);
-	elem.addEventListener("touchmove", dragMove);
-	elem.addEventListener("touchend", dragEnd);
+	theIFrame.removeEventListner("touchmove", iframeTouchMove);
+	theIFrame.addEventListener("touchmove", dragMove);
+	theIFrame.addEventListener("touchend", dragEnd);
 }
 
 function dragMove(e)
