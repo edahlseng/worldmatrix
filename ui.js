@@ -594,7 +594,7 @@ function shrink(elem, position) {
     $elem.children("video").remove();
 	$elem.children("img").show();
 
-	if (poisition) {
+	if (position) {
 		position.z = obj.position.z - zMove;
 	} else {
 		position = {z: obj.position.z - zMove};
