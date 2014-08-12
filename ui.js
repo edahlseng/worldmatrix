@@ -455,6 +455,8 @@ function expand(elem) {
 	var duration = 800;
 	var obj = elem.obj;
 
+	// ERIC ADDED:
+	startingPosition = obj.position;
 
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.In)
@@ -631,8 +633,6 @@ function startDragging(theIFrame)
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
 	var obj = elem.obj;
-
-	startingPosition = obj.position;
 
 	// set back to thumbnail image
  //    $elem.children("iframe").remove();
