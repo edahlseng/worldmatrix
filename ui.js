@@ -649,11 +649,12 @@ function startDragging(theIFrame)
 	// set & remove some handlers
 	elem.removeEventListener("touchmove", iframeTouchMove);
 	elem.addEventListener("touchmove", dragMove);
-	elem.addEventListener("touchend", function () {console.log("touch is coming to an end");});
+	elem.addEventListener("touchend", dragEnd);
 }
 
 function dragMove(e)
 {
+	console.log('drag is Moving');
 	e.preventDefault();
 	e.stopPropagation();
 	zframe = this;
@@ -667,4 +668,9 @@ function dragMove(e)
 		.easing(TWEEN.Easing.Quadratic.Out)
 		.to({x: e.clientX - 100, y:e.clientY - 100}, duration)
 		.start();
+}
+
+function dragEnd(e)
+{
+	shrink(this.parentNode);
 }
