@@ -690,7 +690,7 @@ function dragMove(e)
 	var obj = elem.obj;
 
 	console.log("object's position", obj.position);
-	console.log("object's size", obj.size);
+	console.log("object's size", elem.style.height);
 	console.log("e.clientX", e.clientX);
 	console.log("e.clientY", e.clientY);
 
