@@ -489,6 +489,16 @@ function expand(elem) {
 		.onUpdate( render )
 		.start();
 	currElem = elem;
+
+	// Faketrix added:
+	touchHandler.registerOnTouch(obj, null, dragEnd, dragMove);
+
+
+	$(document).on({
+			'touchstart': touchHandler.onTouchStart,
+			'touchmove': touchHandler.onTouchMove,
+			'touchend': touchHandler.onTouchEnd
+			});
 }
 
 function showContent(elem) {
@@ -536,7 +546,6 @@ function showContent(elem) {
 var lastITime;
 
 var lastIMoveY = null;
-var initialTouch;
 
 function iframeTouchMove(ev) {
 	ev.preventDefault();
@@ -551,17 +560,7 @@ function iframeTouchMove(ev) {
 		// this.contentWindow.scrollBy(0, dY);
 		// lastIMoveY = ev.clientY;
 	//}
-	if (!initialTouch)
-	{
-		initialTouch = {x:ev.clientX, y:ev.clientY};
-	} else {
-		var dy = Math.abs(ev.clientY - initialTouch.y);
-		var dx = Math.abs(ev.clientX - initialTouch.x);
-		if (dy > 50 || dx > 50)
-		{
-			startDragging(this, ev);
-		}
-	}
+	
 	// console.log("iframe touch move", ev);
 }
 
@@ -621,14 +620,33 @@ function shrink(elem, position) {
 		.easing(TWEEN.Easing.Quadratic.Out)
 		.onUpdate( render )
 		.start();
+
+
+	// faketrix added:
+	$(document).off({
+			'touchstart': touchHandler.onTouchStart,
+			'touchmove': touchHandler.onTouchMove,
+			'touchend': touchHandler.onTouchEnd
+			});
 }
 
+// faketrix added:
+var touchHandler; 
+window.addEventListener("load", function () {
+	// camera is defined in index.html
+	var config = null;
+	touchHandler new TouchHandler(new Utils(), camera, config);
+	// GeometryUtils.init(config, touchHandler, AnimationUtils);
+});
+
+function maybeStart
+
 var startingPosition;
+var dragging;
+var initialTouch;
 
-function startDragging(theIFrame, e)
+function startDragging(elem)
 {
-	var elem = theIFrame.parentNode;
-
 	var duration = 300;
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
@@ -648,10 +666,10 @@ function startDragging(theIFrame, e)
 	console.log("old position", obj.position);
 	console.log("newPosition", newPosition);
 
-	new TWEEN.Tween(obj.position)
-		.easing(TWEEN.Easing.Quadratic.Out)
-		.to(newPosition, duration)
-		.start();
+	// new TWEEN.Tween(obj.position)
+	// 	.easing(TWEEN.Easing.Quadratic.Out)
+	// 	.to(newPosition, duration)
+	// 	.start();
 
 	new TWEEN.Tween(size)
 		.easing(TWEEN.Easing.Quadratic.Out)
@@ -667,16 +685,29 @@ function startDragging(theIFrame, e)
 		.easing(TWEEN.Easing.Quadratic.Out)
 		.onUpdate( render )
 		.start();
-
-	// set & remove some handlers
-	console.log(theIFrame);
-	theIFrame.removeEventListener("touchmove", iframeTouchMove);
-	theIFrame.addEventListener("touchmove", dragMove);
-	theIFrame.addEventListener("touchend", dragEnd);
 }
 
-function dragMove(e)
+function dragMove(event, touch, object, point)
 {
+	console.log("event ", event);
+	console.log("touch", touch);
+	console.log("object", object);
+	console.log("point", point);
+
+	return;
+
+	if (!initialTouch)
+	{
+		initialTouch = {x:ev.clientX, y:ev.clientY};
+	} else {
+		var dy = Math.abs(ev.clientY - initialTouch.y);
+		var dx = Math.abs(ev.clientX - initialTouch.x);
+		if (dy > 50 || dx > 50)
+		{
+			startDragging(this, ev);
+		}
+	}
+
 	elem = this.parentNode;
 	
 	console.log('drag is Moving');
@@ -712,9 +743,9 @@ function dragMove(e)
 		.start();	
 }
 
-function dragEnd(e)
+function dragEnd(event, touch, object, point)
 {
-	console.log("drag ended");
-	shrink(this.parentNode, startingPosition);
-	currElem = null;
+	// console.log("drag ended");
+	// shrink(this.parentNode, startingPosition);
+	// currElem = null;
 }
