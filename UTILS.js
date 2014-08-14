@@ -3,8 +3,7 @@
  *
  * @author Amir Lazarovich
  */
-define(function() {
-	
+
 	function Utils() {
 		//////////////////////////////////////////////////////
 	 	////// Private
@@ -264,6 +263,3 @@ define(function() {
 			}
 		};
 	}
-
-	return new Utils();
-});
