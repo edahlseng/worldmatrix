@@ -455,7 +455,7 @@ function expand(elem) {
 	var duration = 800;
 	var obj = elem.obj;
 
-	// ERIC ADDED:
+	// faketrix added:
 	startingPosition = {x:obj.position.x, y:obj.position.y};
 
 	new TWEEN.Tween(obj.position)
@@ -531,7 +531,7 @@ function showContent(elem) {
 		    imgTags.hide();
 		    video.addEventListener('touchstart', contentTouchStart);
 
-		    // ERIC added:
+		    // faketrix added:
 		    video.addEventListener('touchmove', iframeTouchMove);
 
 		    elem.appendChild(video);
@@ -632,12 +632,12 @@ function shrink(elem, position) {
 
 // faketrix added:
 var touchHandler; 
-window.addEventListener("load", function () {
+function loadTouchHandler() {
 	// camera is defined in index.html
 	var config = null;
 	touchHandler = new TouchHandler(new Utils(), camera, config);
 	// GeometryUtils.init(config, touchHandler, AnimationUtils);
-});
+}
 
 var startingPosition;
 var dragging;
