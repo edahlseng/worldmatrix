@@ -635,7 +635,7 @@ var touchHandler;
 window.addEventListener("load", function () {
 	// camera is defined in index.html
 	var config = null;
-	touchHandler new TouchHandler(new Utils(), camera, config);
+	touchHandler = new TouchHandler(new Utils(), camera, config);
 	// GeometryUtils.init(config, touchHandler, AnimationUtils);
 });
 
