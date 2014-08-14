@@ -202,17 +202,17 @@
 		};
 
 		this.log = function(msg, event) {
-			if (config.debug.LOG) {
-				console.log(msg);
-			}
+			// if (config.debug.LOG) {
+			// 	console.log(msg);
+			// }
 
-			if (config.debug.LOG_SERVER) {
-				if (event == undefined || event == null) {
-					event = config.sockets.log.events.DEBUG;
-				}
+			// if (config.debug.LOG_SERVER) {
+			// 	if (event == undefined || event == null) {
+			// 		event = config.sockets.log.events.DEBUG;
+			// 	}
 
-				me.emit(event, msg);
-			}		
+			// 	me.emit(event, msg);
+			// }		
 		};
 
 		this.world2screen = function(position, camera, width, height) {
