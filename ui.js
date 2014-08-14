@@ -639,8 +639,6 @@ window.addEventListener("load", function () {
 	// GeometryUtils.init(config, touchHandler, AnimationUtils);
 });
 
-function maybeStart
-
 var startingPosition;
 var dragging;
 var initialTouch;
