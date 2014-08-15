@@ -603,9 +603,8 @@ function iframeTouchMove(ev) {
 	
 	console.log(obj);
 
-    obj.position.x += movementDifference.x;
-    obj.position.y += movementDifference.y;
-	obj.__dirtyPosition = true;
+    obj.translateX(movementDifference.x);
+    obj.translateY(movementDifference.y);
 
 
 	//if (!lastIMoveY) {
