@@ -596,13 +596,10 @@ function iframeTouchMove(ev) {
 		return;
 	}
 
-	console.log('made it');
-
-
 	var movementDifference = {x: ev.clientX - previousPosition.x, y: ev.clientY - previousPosition.y};
 	
-	var yIn3d = height3dWithZ(obj.position.z, movementDifference.y);
-	var xIn3d = height3dWithZ(obj.position.z, movementDifference.x);
+	var yIn3d = -screenDeltaToWorldWithZ(obj.position.z, movementDifference.y);
+	var xIn3d = screenDeltaToWorldWithZ(obj.position.z, movementDifference.x);
 
 	var newPosition = {x: obj.position.x + xIn3d, y: obj.position.y + yIn3d};
 	var duration = 0.1;
@@ -714,6 +711,23 @@ var startingPosition;
 var dragging;
 var initialTouch;
 var previousPosition;
+
+function screenDeltaToWorldWithZ(z, pxHeight) {
+    var theta = THREE.Math.degToRad(camera.fov / 2);
+    var full3dHeight = 2 * Math.tan(theta) * z;
+
+    var fullPxHeight = window.innerHeight;
+    var ratio =   pxHeight / fullPxHeight;
+    var worldHeight = ratio * full3dHeight;
+
+    console.log("z", z);
+    console.log("worldHeight", worldHeight);
+
+    // zzobj.position.y = 1450; zzobj.position.x = -2900;
+
+    return worldHeight;
+}
+
 
 // function width3dWithZ(z, pxWidth) {
 //     var theta = THREE.Math.degToRad(camera.fov / 2);
