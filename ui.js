@@ -661,16 +661,15 @@ function shrink(elem, position) {
     $elem.children("video").remove();
 	$elem.children("img").show();
 
-	// if (position) {
-		// position.z = obj.position.z - zMove;
-	// } else {
-	// 	position = {z: obj.position.z - zMove};
-	// }
-	// startingPosition.z = obj.position.z - zMove;
+	if (position) {
+		position.z = obj.position.z - zMove;
+	} else {
+		position = {z: obj.position.z - zMove};
+	}
 
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.Out)
-		.to({z: obj.position.z - zMove}, duration)
+		.to(position, duration)
 		.start();
 	
 	new TWEEN.Tween(size)
