@@ -601,9 +601,9 @@ function iframeTouchMove(ev) {
 
 	var movementDifference = {x: ev.clientX - previousPosition.x, y: ev.clientY - previousPosition.y};
 	
-	var 3dY = height3dWithZ(obj.position.z, movementDifference.y);
+	var yIn3d = height3dWithZ(obj.position.z, movementDifference.y);
 
-	var newPosition = {x: obj.position.x + movementDifference.x, y: obj.position.y + 3dY};
+	var newPosition = {x: obj.position.x + movementDifference.x, y: obj.position.y + yIn3d};
 	var duration = 0.1;
 
     new TWEEN.Tween(obj.position)
