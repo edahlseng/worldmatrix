@@ -726,7 +726,7 @@ function screenDeltaToWorldWithZ(z, pxHeight) {
 
     // zzobj.position.y = 1450; zzobj.position.x = -2900;
 
-    return worldHeight * 4.0;
+    return worldHeight * 6.0;
 }
 
 
