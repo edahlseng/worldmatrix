@@ -584,6 +584,7 @@ function iframeTouchMove(ev) {
 		if (dy > 50 || dx > 50)
 		{
 			dragging = true;
+			this.addEventListener("touchend", dragEnd);
 		}
 	}
 
@@ -801,7 +802,9 @@ function dragMove(event, touch, object, point)
 
 function dragEnd(event, touch, object, point)
 {
-	// console.log("drag ended");
-	// shrink(this.parentNode, startingPosition);
-	// currElem = null;
+	console.log("drag ended");
+	shrink(this.parentNode, startingPosition);
+	currElem = null;
+	previousPosition = null;
+	dragging = false;
 }
