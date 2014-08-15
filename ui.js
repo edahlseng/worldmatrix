@@ -640,6 +640,7 @@ function contentTouchStart(ev) {
 		if (delta < 450) {
 			// ev.stopPropogation();
 			console.log("you double tapped iframe!!!", this);
+			this.removeEventListener("touchend", dragEnd);
 			shrink(this.parentNode);
 			currElem = null;
 		} else {
@@ -656,6 +657,8 @@ function shrink(elem, position) {
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
 	var obj = elem.obj;
+
+
 
 	// remove any stuff
     $elem.children("iframe").remove();
@@ -749,14 +752,14 @@ function screenDeltaToWorldWithZ(z, pxHeight) {
 function dragEnd(event, touch, object, point)
 {
 	// this chunk fixes a weird glitch that we get when expanding/closing images
-	var now = (new Date()).getTime();
-	if (lastITime) {
-		var delta = now - lastITime;
-		console.log("delta ", delta);
-		if (delta < 1500) {
-			return;
-		}
-	}
+	// var now = (new Date()).getTime();
+	// if (lastITime) {
+	// 	var delta = now - lastITime;
+	// 	console.log("delta ", delta);
+	// 	if (delta < 1500) {
+	// 		return;
+	// 	}
+	// }
 
 	console.log("drag ended");
 	// shrink(this.parentNode, startingPosition);
