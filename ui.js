@@ -584,6 +584,7 @@ function iframeTouchMove(ev) {
 		if (dy > 50 || dx > 50)
 		{
 			dragging = true;
+			console.log("adding");
 			this.addEventListener("touchend", dragEnd);
 		}
 	}
