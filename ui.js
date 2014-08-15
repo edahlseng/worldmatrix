@@ -401,8 +401,8 @@ function imgMoveStart(ev) {
 	// console.log("moving...", ev);
 
 	if (camera.position.z < 4500) {
-		// ev.preventDefault();
-		// ev.stopPropagation();
+		ev.preventDefault();
+		ev.stopPropagation();
 	}
 
 	if (camera.position.z < 4500 && lastTouchElem == this) {
@@ -548,9 +548,30 @@ var lastITime;
 var lastIMoveY = null;
 
 function iframeTouchMove(ev) {
-	// ev.preventDefault();
-	// ev.stopPropagation();
-	// zframe = this;
+	ev.preventDefault();
+	ev.stopPropagation();
+	zframe = this;
+
+
+
+	// faketrix added:
+	var vector = new THREE.Vector3(
+    ( event.clientX / window.innerWidth ) * 2 - 1,
+    - ( event.clientY / window.innerHeight ) * 2 + 1,
+    0.5 );
+
+	projector.unprojectVector( vector, camera );
+
+	var dir = vector.sub( camera.position ).normalize();
+
+	var distance = - camera.position.z / dir.z;
+
+	var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
+
+	console.log("position, ", pos);
+
+
+
 
 	//if (!lastIMoveY) {
 	//	lastIMoveY = ev.clientY;
@@ -631,27 +652,13 @@ function shrink(elem, position) {
 }
 
 // faketrix added:
-function positionInObj(position, obj) {
-    var theta = THREE.Math.degToRad(camera.fov / 2);
-    var full3dHeight = 2 * Math.tan(theta) * z;
-
-    var fullPxHeight = window.innerHeight;
-    var ratio =   pxHeight / fullPxHeight;
-    var worldHeight = ratio * full3dHeight;
-
-    // zzobj.position.y = 1450; zzobj.position.x = -2900;
-
-    return worldHeight;
-}
-
-
-var touchHandler; 
-function loadTouchHandler() {
-	// camera is defined in index.html
-	var config = null;
-	touchHandler = new TouchHandler(new Utils(), camera, config);
-	// GeometryUtils.init(config, touchHandler, AnimationUtils);
-}
+// var touchHandler; 
+// function loadTouchHandler() {
+// 	// camera is defined in index.html
+// 	var config = null;
+// 	touchHandler = new TouchHandler(new Utils(), camera, config);
+// 	// GeometryUtils.init(config, touchHandler, AnimationUtils);
+// }
 
 var startingPosition;
 var dragging;
