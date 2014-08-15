@@ -688,11 +688,11 @@ function shrink(elem, position) {
 
 
 	// faketrix added:
-	$(document).off({
-			'touchstart': touchHandler.onTouchStart,
-			'touchmove': touchHandler.onTouchMove,
-			'touchend': touchHandler.onTouchEnd
-			});
+	// $(document).off({
+	// 		'touchstart': touchHandler.onTouchStart,
+	// 		'touchmove': touchHandler.onTouchMove,
+	// 		'touchend': touchHandler.onTouchEnd
+	// 		});
 }
 
 // faketrix added:
@@ -720,8 +720,8 @@ function screenDeltaToWorldWithZ(z, pxHeight) {
     var ratio =   pxHeight / fullPxHeight;
     var worldHeight = ratio * full3dHeight;
 
-    console.log("z", z);
-    console.log("worldHeight", worldHeight);
+    // console.log("z", z);
+    // console.log("worldHeight", worldHeight);
 
     // zzobj.position.y = 1450; zzobj.position.x = -2900;
 
