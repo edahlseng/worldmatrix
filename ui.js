@@ -661,15 +661,16 @@ function shrink(elem, position) {
     $elem.children("video").remove();
 	$elem.children("img").show();
 
-	if (position) {
-		position.z = obj.position.z - zMove;
-	} else {
-		position = {z: obj.position.z - zMove};
-	}
+	// if (position) {
+		// position.z = obj.position.z - zMove;
+	// } else {
+	// 	position = {z: obj.position.z - zMove};
+	// }
+	startingPosition.z = obj.position.z - zMove;
 
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.Out)
-		.to(position, duration)
+		.to(startingPosition, duration)
 		.start();
 	
 	new TWEEN.Tween(size)
@@ -803,8 +804,10 @@ function dragMove(event, touch, object, point)
 function dragEnd(event, touch, object, point)
 {
 	console.log("drag ended");
-	shrink(this.parentNode, startingPosition);
-	currElem = null;
+	// shrink(this.parentNode, startingPosition);
+	// currElem = null;
+	lastITime = (new Date()).getTime();
+	contentTouchStart.call(this);
 	previousPosition = null;
 	dragging = false;
 }
