@@ -590,15 +590,19 @@ function iframeTouchMove(ev) {
 	if (!dragging) {
 		return;
 	}
-	console.log('madeit');
 
 	if (!previousPosition) {
 		previousPosition = {x: ev.clientX, y: ev.clientY};
 		return;
 	}
 
+	console.log('made it');
+
+
 	var movementDifference = {x: ev.clientX - previousPosition.x, y: ev.clientY - previousPosition.y};
 	
+	console.log(obj);
+
     obj.position.x += movementDifference.x;
     obj.position.y += movementDifference.y;
 	obj.__dirtyPosition = true;
