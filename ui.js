@@ -490,8 +490,8 @@ function expand(elem) {
 		.start();
 	currElem = elem;
 
-	// Faketrix added:
-	touchHandler.registerOnTouch(obj, null, dragEnd, dragMove);
+	// // Faketrix added:
+	// touchHandler.registerOnTouch(obj, null, dragEnd, dragMove);
 
 
 	$(document).on({
@@ -555,14 +555,14 @@ function iframeTouchMove(ev) {
 
 
 	// faketrix added:
-	var vector = new THREE.Vector3(
+	var mouse3D = new THREE.Vector3(
     ( event.clientX / window.innerWidth ) * 2 - 1,
     - ( event.clientY / window.innerHeight ) * 2 + 1,
     0.5 );
 
-	projector.unprojectVector( vector, camera );
+	projector.unprojectVector( mouse3D, camera );
 
-	var dir = vector.sub( camera.position ).normalize();
+	var dir = mouse3D.sub( camera.position ).normalize();
 
 	var distance = - camera.position.z / dir.z;
 
@@ -652,6 +652,9 @@ function shrink(elem, position) {
 }
 
 // faketrix added:
+
+var projector = new THREE.Projector();
+
 // var touchHandler; 
 // function loadTouchHandler() {
 // 	// camera is defined in index.html
