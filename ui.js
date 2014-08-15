@@ -548,9 +548,9 @@ var lastITime;
 var lastIMoveY = null;
 
 function iframeTouchMove(ev) {
-	ev.preventDefault();
-	ev.stopPropagation();
-	zframe = this;
+	// ev.preventDefault();
+	// ev.stopPropagation();
+	// zframe = this;
 
 	//if (!lastIMoveY) {
 	//	lastIMoveY = ev.clientY;
@@ -631,6 +631,20 @@ function shrink(elem, position) {
 }
 
 // faketrix added:
+function positionInObj(position, obj) {
+    var theta = THREE.Math.degToRad(camera.fov / 2);
+    var full3dHeight = 2 * Math.tan(theta) * z;
+
+    var fullPxHeight = window.innerHeight;
+    var ratio =   pxHeight / fullPxHeight;
+    var worldHeight = ratio * full3dHeight;
+
+    // zzobj.position.y = 1450; zzobj.position.x = -2900;
+
+    return worldHeight;
+}
+
+
 var touchHandler; 
 function loadTouchHandler() {
 	// camera is defined in index.html
