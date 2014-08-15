@@ -745,64 +745,17 @@ function screenDeltaToWorldWithZ(z, pxHeight) {
 //     return worldWidth;
 // }
 
-function dragMove(event, touch, object, point)
+function dragEnd(event, touch, object, point)
 {
-	console.log("event ", event);
-	console.log("touch", touch);
-	console.log("object", object);
-	console.log("point", point);
-
-	return;
-
-	if (!initialTouch)
-	{
-		initialTouch = {x:ev.clientX, y:ev.clientY};
-	} else {
-		var dy = Math.abs(ev.clientY - initialTouch.y);
-		var dx = Math.abs(ev.clientX - initialTouch.x);
-		if (dy > 50 || dx > 50)
-		{
-			startDragging(this, ev);
+	// this chunk fixes a weird glitch that we get when expanding/closing images
+	var now = (new Date()).getTime();
+	if (lastITime) {
+		var delta = now - lastITime;
+		if (delta < 450) {
+			return;
 		}
 	}
 
-	elem = this.parentNode;
-	
-	console.log('drag is Moving');
-	e.preventDefault();
-	e.stopPropagation();
-	zframe = this;
-
-	var duration = 10;
-	var $elem = $(elem);
-	var size = {width: $elem.width(), height: $elem.height()};
-	var obj = elem.obj;
-
-	console.log("object's position", obj.position);
-	console.log("object's size" );
-	console.log("e.clientX", e.clientX);
-	console.log("e.clientY", e.clientY);
-
-	var newPositionOffsetX = e.clientX - 100;
-	var newPositionOffsetY = (parseInt(elem.style.height) - e.clientY) - 100;
-
-	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
-
-
-	new TWEEN.Tween(obj.position)
-		.easing(TWEEN.Easing.Quadratic.Out)
-		.to(newPosition, duration)
-		.start();
-
-	new TWEEN.Tween( this )
-		.to( {}, duration * 1.05)
-		.easing(TWEEN.Easing.Quadratic.Out)
-		.onUpdate( render )
-		.start();	
-}
-
-function dragEnd(event, touch, object, point)
-{
 	console.log("drag ended");
 	// shrink(this.parentNode, startingPosition);
 	// currElem = null;
