@@ -602,8 +602,9 @@ function iframeTouchMove(ev) {
 	var movementDifference = {x: ev.clientX - previousPosition.x, y: ev.clientY - previousPosition.y};
 	
 	var yIn3d = height3dWithZ(obj.position.z, movementDifference.y);
+	var xIn3d = height3dWithZ(obj.position.z, movementDifference.x);
 
-	var newPosition = {x: obj.position.x + movementDifference.x, y: obj.position.y + yIn3d};
+	var newPosition = {x: obj.position.x + xIn3d, y: obj.position.y + yIn3d};
 	var duration = 0.1;
 
     new TWEEN.Tween(obj.position)
@@ -617,6 +618,7 @@ function iframeTouchMove(ev) {
 		.onUpdate( render )
 		.start();
 
+	previousPosition = {x: ev.clientX, y: ev.clientY};
 
 	//if (!lastIMoveY) {
 	//	lastIMoveY = ev.clientY;
@@ -713,47 +715,18 @@ var dragging;
 var initialTouch;
 var previousPosition;
 
-function startDragging(elem)
-{
-	var duration = 300;
-	var $elem = $(elem);
-	var size = {width: $elem.width(), height: $elem.height()};
-	var obj = elem.obj;
+// function width3dWithZ(z, pxWidth) {
+//     var theta = THREE.Math.degToRad(camera.fov / 2);
+//     var full3dWidth = 2 * Math.tan(theta) * z;
 
-	// set back to thumbnail image
- //    $elem.children("iframe").remove();
- //    $elem.children("video").remove();
-	// $elem.children("img").show();
+//     var fullPxWidth = window.innerWidth;
+//     var ratio =   pxWidth / fullPxWidth;
+//     var worldWidth = ratio * full3dWidth;
 
-	console.log("we are going to start to drag");
-	
-	var newPositionOffsetX = e.clientX - 100;
-	var newPositionOffsetY = (parseInt(elem.style.height) - e.clientY) - 100;
-	var newPosition = {x: obj.position.x + newPositionOffsetX, y: obj.position.y + newPositionOffsetY};
+//     // zzobj.position.y = 1450; zzobj.position.x = -2900;
 
-	console.log("old position", obj.position);
-	console.log("newPosition", newPosition);
-
-	// new TWEEN.Tween(obj.position)
-	// 	.easing(TWEEN.Easing.Quadratic.Out)
-	// 	.to(newPosition, duration)
-	// 	.start();
-
-	new TWEEN.Tween(size)
-		.easing(TWEEN.Easing.Quadratic.Out)
-		.to({width: 500, height: 375}, duration)
-		.onUpdate(function() {
-			elem.style.width = this.width + "px";
-			elem.style.height = this.height + "px";
-		})
-		.start();
-
-	new TWEEN.Tween( this )
-		.to( {}, duration * 1.05)
-		.easing(TWEEN.Easing.Quadratic.Out)
-		.onUpdate( render )
-		.start();
-}
+//     return worldWidth;
+// }
 
 function dragMove(event, touch, object, point)
 {
