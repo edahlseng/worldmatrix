@@ -493,6 +493,7 @@ function expand(elem) {
 	// // Faketrix added:
 	// touchHandler.registerOnTouch(obj, null, dragEnd, dragMove);
 
+	setTimeout(function () {expanded = true;}, duration);
 
 	// $(document).on({
 	// 		'touchstart': touchHandler.onTouchStart,
@@ -581,7 +582,7 @@ function iframeTouchMove(ev) {
 	} else {
 		var dy = Math.abs(ev.clientY - initialTouch.y);
 		var dx = Math.abs(ev.clientX - initialTouch.x);
-		if (dy > 50 || dx > 50)
+		if (expanded && (dy > 50 || dx > 50))
 		{
 			dragging = true;
 			console.log("adding");
@@ -641,6 +642,7 @@ function contentTouchStart(ev) {
 			// ev.stopPropogation();
 			console.log("you double tapped iframe!!!", this);
 			this.removeEventListener("touchend", dragEnd);
+			expanded = false;
 			shrink(this.parentNode);
 			currElem = null;
 		} else {
@@ -717,6 +719,7 @@ var startingPosition;
 var dragging;
 var initialTouch;
 var previousPosition;
+var expanded = false;
 
 function screenDeltaToWorldWithZ(z, pxHeight) {
     // var theta = THREE.Math.degToRad(camera.fov / 2);
@@ -751,16 +754,6 @@ function screenDeltaToWorldWithZ(z, pxHeight) {
 
 function dragEnd(event, touch, object, point)
 {
-	// this chunk fixes a weird glitch that we get when expanding/closing images
-	// var now = (new Date()).getTime();
-	// if (lastITime) {
-	// 	var delta = now - lastITime;
-	// 	console.log("delta ", delta);
-	// 	if (delta < 1500) {
-	// 		return;
-	// 	}
-	// }
-
 	console.log("drag ended");
 	// shrink(this.parentNode, startingPosition);
 	// currElem = null;
