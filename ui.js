@@ -556,26 +556,39 @@ function iframeTouchMove(ev) {
 
 	// faketrix added:
 	var obj = this.parentNode.obj;
-	var z = obj.position.z;
+	// var z = obj.position.z;
 
-	console.log("z pos", z);
+	// console.log("z pos", z);
 
-	var mouse3D = new THREE.Vector3(
-    ( event.clientX / window.innerWidth ) * 2 - 1,
-    - ( event.clientY / window.innerHeight ) * 2 + 1,
-    z );
+	// var mouse3D = new THREE.Vector3(
+ //    ( event.clientX / window.innerWidth ) * 2 - 1,
+ //    - ( event.clientY / window.innerHeight ) * 2 + 1,
+ //    z );
 
-	projector.unprojectVector( mouse3D, camera );
+	// projector.unprojectVector( mouse3D, camera );
 
-	var dir = mouse3D.sub( camera.position ).normalize();
+	// var dir = mouse3D.sub( camera.position ).normalize();
 
-	var distance = - camera.position.z / dir.z;
+	// var distance = - camera.position.z / dir.z;
 
-	var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
+	// var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
 
-	console.log("position, ", pos);
+	// console.log("position, ", pos);
+	
 
+	if (!dragging) {
+		return;
+	}
 
+	if (!previousPosition) {
+		previousPosition = {x: ev.clientX, y: ev.clientY};
+		return;
+	}
+
+	var movementDifference = {x: ev.clientX - previousPosition.x, y: ev.clientY - previousPosition.y};
+	obj.__dirtyPosition = true;
+    obj.position.x += movementDifference.x;
+    obj.position.y += movementDifference.y;
 
 
 	//if (!lastIMoveY) {
@@ -671,6 +684,7 @@ var projector = new THREE.Projector();
 var startingPosition;
 var dragging;
 var initialTouch;
+var previousPosition;
 
 function startDragging(elem)
 {
