@@ -401,8 +401,8 @@ function imgMoveStart(ev) {
 	// console.log("moving...", ev);
 
 	if (camera.position.z < 4500) {
-		ev.preventDefault();
-		ev.stopPropagation();
+		// ev.preventDefault();
+		// ev.stopPropagation();
 	}
 
 	if (camera.position.z < 4500 && lastTouchElem == this) {
