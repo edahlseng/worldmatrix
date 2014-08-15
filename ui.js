@@ -670,7 +670,7 @@ function shrink(elem, position) {
 
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.Out)
-		.to(position, duration)
+		.to(startingPosition, duration)
 		.start();
 	
 	new TWEEN.Tween(size)
