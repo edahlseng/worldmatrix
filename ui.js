@@ -494,11 +494,11 @@ function expand(elem) {
 	// touchHandler.registerOnTouch(obj, null, dragEnd, dragMove);
 
 
-	$(document).on({
-			'touchstart': touchHandler.onTouchStart,
-			'touchmove': touchHandler.onTouchMove,
-			'touchend': touchHandler.onTouchEnd
-			});
+	// $(document).on({
+	// 		'touchstart': touchHandler.onTouchStart,
+	// 		'touchmove': touchHandler.onTouchMove,
+	// 		'touchend': touchHandler.onTouchEnd
+	// 		});
 }
 
 function showContent(elem) {
@@ -575,6 +575,17 @@ function iframeTouchMove(ev) {
 
 	// console.log("position, ", pos);
 	
+	if (!initialTouch)
+	{
+		initialTouch = {x:ev.clientX, y:ev.clientY};
+	} else {
+		var dy = Math.abs(ev.clientY - initialTouch.y);
+		var dx = Math.abs(ev.clientX - initialTouch.x);
+		if (dy > 50 || dx > 50)
+		{
+			dragging = true;
+		}
+	}
 
 	if (!dragging) {
 		return;
