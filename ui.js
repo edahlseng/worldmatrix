@@ -555,10 +555,13 @@ function iframeTouchMove(ev) {
 
 
 	// faketrix added:
+	var obj = this.parentNode.obj;
+	var z = obj.position.z;
+
 	var mouse3D = new THREE.Vector3(
     ( event.clientX / window.innerWidth ) * 2 - 1,
     - ( event.clientY / window.innerHeight ) * 2 + 1,
-    0.5 );
+    z );
 
 	projector.unprojectVector( mouse3D, camera );
 
