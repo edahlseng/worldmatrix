@@ -601,10 +601,19 @@ function iframeTouchMove(ev) {
 
 	var movementDifference = {x: ev.clientX - previousPosition.x, y: ev.clientY - previousPosition.y};
 	
-	console.log(obj);
+	var newPosition = {x: obj.position.x + movementDifference.x, y: obj.position.y + movementDifference.y};
+	var duration = 0.1;
 
-    obj.translateX(movementDifference.x);
-    obj.translateY(movementDifference.y);
+    new TWEEN.Tween(obj.position)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.to(newPosition, duration)
+		.start();
+
+	new TWEEN.Tween( this )
+		.to( {}, duration * 1.05)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.onUpdate( render )
+		.start();
 
 
 	//if (!lastIMoveY) {
