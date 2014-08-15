@@ -590,6 +590,7 @@ function iframeTouchMove(ev) {
 	if (!dragging) {
 		return;
 	}
+	console.log('madeit');
 
 	if (!previousPosition) {
 		previousPosition = {x: ev.clientX, y: ev.clientY};
