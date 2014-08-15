@@ -666,11 +666,11 @@ function shrink(elem, position) {
 	// } else {
 	// 	position = {z: obj.position.z - zMove};
 	// }
-	startingPosition.z = obj.position.z - zMove;
+	// startingPosition.z = obj.position.z - zMove;
 
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.Out)
-		.to(startingPosition, duration)
+		.to({z: obj.position.z - zMove}, duration)
 		.start();
 	
 	new TWEEN.Tween(size)
