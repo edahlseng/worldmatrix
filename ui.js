@@ -602,7 +602,7 @@ function iframeTouchMove(ev) {
 	var xIn3d = screenDeltaToWorldWithZ(obj.position.z, movementDifference.x);
 
 	var newPosition = {x: obj.position.x + xIn3d, y: obj.position.y + yIn3d};
-	var duration = 0.1;
+	var duration = 0.001;
 
     new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.Out)
@@ -714,7 +714,7 @@ var previousPosition;
 
 function screenDeltaToWorldWithZ(z, pxHeight) {
     // var theta = THREE.Math.degToRad(camera.fov / 2);
-    var theta = camera.fov;
+    var theta = camera.fov / 2.0;
     var full3dHeight = 2.0 * Math.tan(theta) * z;
 
     var fullPxHeight = window.innerHeight;
