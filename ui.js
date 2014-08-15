@@ -715,7 +715,7 @@ var previousPosition;
 function screenDeltaToWorldWithZ(z, pxHeight) {
     // var theta = THREE.Math.degToRad(camera.fov / 2);
     var theta = camera.fov / 2.0;
-    var full3dHeight = 2.0 * Math.tan(theta) * z;
+    var full3dHeight = Math.tan(theta) * z;
 
     var fullPxHeight = window.innerHeight;
     var ratio =   pxHeight / fullPxHeight;
