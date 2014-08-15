@@ -751,7 +751,7 @@ function dragEnd(event, touch, object, point)
 	var now = (new Date()).getTime();
 	if (lastITime) {
 		var delta = now - lastITime;
-		if (delta < 450) {
+		if (delta < 1500) {
 			return;
 		}
 	}
