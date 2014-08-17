@@ -803,13 +803,13 @@ function dragEnd(event)
 		notice.style.width = '100%';
 		notice.style.height = '100%';
 		notice.style.lineHeight = '100%';
-		notice.horizontalAlign = "center";
+		notice.style.horizontalAlign = "center";
 		notice.style.background = "black";
 		notice.style.opacity = .85;
 		notice.innerHTML = "Article Sent";
-		notice.fontSize = '200px';
-		notice.color = "white";
-		notice.fontFamily = "Arial";
+		notice.style.fontSize = '200px';
+		notice.style.color = "white";
+		notice.style.fontFamily = "Arial";
 
 		document.querySelector('html').appendChild(notice);
 		setTimeout(function () {
