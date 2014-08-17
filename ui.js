@@ -561,12 +561,12 @@ function iframeTouchMove(ev) {
 	var obj = this.parentNode.obj;
 	if (!timelineObjects)
 	{
-		var timebarElements = document.querySelectorAll('.timebar:not(.topic)');
-		timelineObjects = [];
-		for (var i = 0; i < timebarElements.length; i++)
-		{
-			timelineObjects.push(timebarElements[i].obj);
-		}
+		timelineObjects = document.querySelectorAll('.timebar:not(.topic)');
+		// timelineObjects = [];
+		// for (var i = 0; i < timebarElements.length; i++)
+		// {
+		// 	timelineObjects.push(timebarElements[i].obj);
+		// }
 		// console.log(timelineObjects);
 	}
 	// var z = obj.position.z;
@@ -756,7 +756,8 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 
 	for (var i = 0; i < objects.length; i++)
 	{
-		var object = objects[i];
+		var element = objects[i];
+		var object = element.obj;
 		console.log(object.width);
 		if (position.x > object.position.x && (position.x - object.position.x) < object.size.width)
 		{
