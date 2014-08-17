@@ -562,6 +562,7 @@ function iframeTouchMove(ev) {
 	if (!timelineObjects)
 	{
 		var timebarElements = document.querySelectorAll('.timebar');
+		timelineObjects = [];
 		for (var i = 0; i < timebarElements.length; i++)
 		{
 			timelineObjects.push(timebarElements[i].obj);
