@@ -790,7 +790,7 @@ function screenDeltaToWorldWithZ(z, pxHeight) {
 function dragEnd(event)
 {
 	console.log("drag ended");
-	console.log(mousePositionIntersectsObjects({x: ev.clientX, y: ev.clientY}, timelineObjects));
+	console.log(mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects));
 	// shrink(this.parentNode, startingPosition);
 	// currElem = null;
 	lastITime = (new Date()).getTime();
