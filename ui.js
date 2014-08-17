@@ -754,18 +754,18 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	var distance = -camera.position.z / direction.z;
 	var position = camera.position.clone().add(direction.multiplyScalar(distance));
 
+	var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+    
+
 	for (var i = 0; i < objects.length; i++)
 	{
 		var element = objects[i];
 		var object = element.obj;
 		var objectPosition = object.position;
-		console.log(position);
-		if (position.x > objectPosition.x && (position.x - objectPosition.x) < element.clientWidth)
+		
+		if (ray.intersectObjects( object ))
 		{
-			if (position.y < objectPosition.y && (objectPosition.y - position.y) < object.clientHeight)
-			{
-				return true;
-			}
+			return true;
 		}
 
 	}
