@@ -633,7 +633,6 @@ function iframeTouchMove(ev) {
 	previousPosition = {x: ev.clientX, y: ev.clientY};
 
 
-	console.log(mousePositionIntersectsObjects({x: ev.clientX, y: ev.clientY}, timelineObjects));
 
 	//if (!lastIMoveY) {
 	//	lastIMoveY = ev.clientY;
@@ -788,9 +787,10 @@ function screenDeltaToWorldWithZ(z, pxHeight) {
 //     return worldWidth;
 // }
 
-function dragEnd(event, touch, object, point)
+function dragEnd(event)
 {
 	console.log("drag ended");
+	console.log(mousePositionIntersectsObjects({x: ev.clientX, y: ev.clientY}, timelineObjects));
 	// shrink(this.parentNode, startingPosition);
 	// currElem = null;
 	lastITime = (new Date()).getTime();
