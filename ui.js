@@ -806,7 +806,7 @@ function dragEnd(event)
 		notice.textAlign = "center";
 		notice.style.background = "black";
 		notice.style.opacity = .85;
-		notice.innerText = "Article Sent";
+		notice.innerHTML = "Article Sent";
 		notice.fontSize = '20%';
 
 		document.querySelector('html').appendChild(notice);
