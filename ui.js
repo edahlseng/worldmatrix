@@ -797,9 +797,9 @@ function dragEnd(event)
 	console.log(mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects));
 	if (true) {
 		var notice = document.createElement('div');
-		notice.style.width = 100%;
-		notice.style.height = 100%;
-		notice.style.lineHeight = 100%;
+		notice.style.width = '100%';
+		notice.style.height = '100%';
+		notice.style.lineHeight = '100%';
 		notice.textAlign = "center";
 		notice.style.background = "black";
 		notice.style.opacity = .7;
