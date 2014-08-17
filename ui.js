@@ -752,7 +752,7 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	var direction = vector.sub(camera.position).normalize();
 	
 	var distance = -camera.position.z / direction.z;
-	distance = 1;
+	distance = 0;
 	var position = camera.position.clone().add(direction.multiplyScalar(distance));
 
 	for (var i = 0; i < objects.length; i++)
