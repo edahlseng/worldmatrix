@@ -795,7 +795,21 @@ function dragEnd(event)
 {
 	console.log("drag ended");
 	console.log(mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects));
-	console.log(timelineObjects);
+	if (true) {
+		var notice = document.createElement('div');
+		notice.style.width = 100%;
+		notice.style.height = 100%;
+		notice.style.lineHeight = 100%;
+		notice.textAlign = "center";
+		notice.style.background = "black";
+		notice.style.opacity = .7;
+		notice.innerText = "Article Sent";
+
+		document.appendChild(notice);
+		setTimeout(function () {
+			document.removeChild(notice);
+		}, 1500);
+	}
 	// shrink(this.parentNode, startingPosition);
 	// currElem = null;
 	lastITime = (new Date()).getTime();
