@@ -561,8 +561,12 @@ function iframeTouchMove(ev) {
 	var obj = this.parentNode.obj;
 	if (!timelineObjects)
 	{
-		timelineObjects = document.querySelectorAll('.timebar');
-		console.log(timelineObjects);
+		var timebarElements = document.querySelectorAll('.timebar');
+		for (var i = 0; i < timebarElements.length; i++)
+		{
+			timelineObjects.push(timebarElements[i].obj);
+		}
+		// console.log(timelineObjects);
 	}
 	// var z = obj.position.z;
 
@@ -589,7 +593,7 @@ function iframeTouchMove(ev) {
 	} else {
 		var dy = Math.abs(ev.clientY - initialTouch.y);
 		var dx = Math.abs(ev.clientX - initialTouch.x);
-		if (expanded && (dy > 50 || dx > 50))
+		if (!dragging && expanded && (dy > 50 || dx > 50))
 		{
 			dragging = true;
 			console.log("adding");
@@ -605,8 +609,6 @@ function iframeTouchMove(ev) {
 		previousPosition = {x: ev.clientX, y: ev.clientY};
 		return;
 	}
-
-	console.log(timelineObjects[0].obj);
 
 	var movementDifference = {x: ev.clientX - previousPosition.x, y: ev.clientY - previousPosition.y};
 	
@@ -628,6 +630,9 @@ function iframeTouchMove(ev) {
 		.start();
 
 	previousPosition = {x: ev.clientX, y: ev.clientY};
+
+
+	console.log(mousePositionIntersectsObjects({x: clientX, y: ev.clientY}, timelineObjects);
 
 	//if (!lastIMoveY) {
 	//	lastIMoveY = ev.clientY;
@@ -730,6 +735,23 @@ var initialTouch;
 var previousPosition;
 var expanded = false;
 var timelineObjects;
+
+function mousePositionIntersectsObjects(mousePosition, objects) {
+	var x = (mousePosition.x / window.innerWidth ) * 2 - 1;
+	var y = - (mousePosition.y / window.innerHeight ) * 2 + 1;
+
+	var projector = new THREE.Projector();
+	var vector = new THREE.Vector3();
+	var raycaster = new THREE.Raycaster();
+
+	vector.set(x, y, 1);
+	projector.unprojectVector(vector, camera);
+
+	var direction = vector.sub(camera.position);
+	raycaster.set(camera.position, direction.normalize());
+	
+	return $.isArray(objects) ? raycaster.intersectObjects(objects) : raycaster.intersectObject(objects);
+}
 
 function screenDeltaToWorldWithZ(z, pxHeight) {
     // var theta = THREE.Math.degToRad(camera.fov / 2);
