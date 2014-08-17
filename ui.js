@@ -749,9 +749,13 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	vector.set(x, y, 1);
 	projector.unprojectVector(vector, camera);
 
+	console.log(vector);
+
 	var direction = vector.sub(camera.position);
 	raycaster.set(camera.position, direction.normalize());
 	
+	console.log(raycaster);
+
 	var recursive = true;
 	return raycaster.intersectObjects(objects, recursive);
 }
