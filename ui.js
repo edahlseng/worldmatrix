@@ -758,7 +758,8 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	{
 		var element = objects[i];
 		var object = element.obj;
-		console.log(element.clientWidth);
+		console.log(position);
+		console.log(object.position);
 		if (position.x > object.position.x && (position.x - object.position.x) < element.clientWidth)
 		{
 			if (position.y > object.position.y && (position.y - object.position.y) < object.clientHeight)
