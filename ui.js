@@ -561,7 +561,7 @@ function iframeTouchMove(ev) {
 	var obj = this.parentNode.obj;
 	if (!timelineObjects)
 	{
-		var timebarElements = document.querySelectorAll('.timebar');
+		var timebarElements = document.querySelectorAll('.timebar:not(.topic)');
 		timelineObjects = [];
 		for (var i = 0; i < timebarElements.length; i++)
 		{
@@ -795,6 +795,7 @@ function dragEnd(event)
 {
 	console.log("drag ended");
 	console.log(mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects));
+	console.log(timelineObjects);
 	// shrink(this.parentNode, startingPosition);
 	// currElem = null;
 	lastITime = (new Date()).getTime();
