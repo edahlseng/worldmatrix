@@ -805,8 +805,9 @@ function dragEnd(event)
 		notice.style.lineHeight = '100%';
 		notice.textAlign = "center";
 		notice.style.background = "black";
-		notice.style.opacity = .7;
+		notice.style.opacity = .85;
 		notice.innerText = "Article Sent";
+		notice.fontSize = '20%';
 
 		document.querySelector('html').appendChild(notice);
 		setTimeout(function () {
