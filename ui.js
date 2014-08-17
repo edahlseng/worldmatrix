@@ -797,6 +797,9 @@ function dragEnd(event)
 	console.log(mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects));
 	if (true) {
 		var notice = document.createElement('div');
+		notice.style.position = "absolute";
+		notice.style.top = 0;
+		notice.style.left = 0;
 		notice.style.width = '100%';
 		notice.style.height = '100%';
 		notice.style.lineHeight = '100%';
@@ -807,7 +810,7 @@ function dragEnd(event)
 
 		document.querySelector('html').appendChild(notice);
 		setTimeout(function () {
-			document.removeChild(notice);
+			document.querySelector('html').removeChild(notice);
 		}, 1500);
 	}
 	// shrink(this.parentNode, startingPosition);
