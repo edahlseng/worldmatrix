@@ -751,7 +751,7 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	var direction = vector.sub(camera.position);
 	raycaster.set(camera.position, direction.normalize());
 	
-	return $.isArray(objects) ? raycaster.intersectObjects(objects) : raycaster.intersectObject(objects);
+	return raycaster.intersectObjects(objects);
 }
 
 function screenDeltaToWorldWithZ(z, pxHeight) {
