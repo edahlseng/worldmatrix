@@ -812,7 +812,7 @@ function dragEnd(event)
 		document.querySelector('html').appendChild(notice);
 		setTimeout(function () {
 			document.querySelector('html').removeChild(notice);
-		}, 1500);
+		}, 300500);
 	}
 	// shrink(this.parentNode, startingPosition);
 	// currElem = null;
