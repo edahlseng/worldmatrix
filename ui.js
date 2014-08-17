@@ -806,7 +806,7 @@ function dragEnd(event)
 		notice.style.horizontalAlign = "center";
 		notice.style.background = "black";
 		notice.style.opacity = .85;
-		notice.innerHTML = '<p style="text-align: center; height: 300px; line-height: 300px; top: 50%; margin-top: -150px;">Article Sent</p>';
+		notice.innerHTML = '<p style="position: absolute; width: 100%; text-align: center; height: 300px; line-height: 300px; top: 50%; margin-top: -150px;">Article Sent</p>';
 		notice.style.fontSize = '200px';
 		notice.style.color = "white";
 		notice.style.fontFamily = "Arial";
