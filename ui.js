@@ -633,7 +633,7 @@ function iframeTouchMove(ev) {
 	previousPosition = {x: ev.clientX, y: ev.clientY};
 
 
-	console.log(mousePositionIntersectsObjects({x: clientX, y: ev.clientY}, timelineObjects));
+	console.log(mousePositionIntersectsObjects({x: ev.clientX, y: ev.clientY}, timelineObjects));
 
 	//if (!lastIMoveY) {
 	//	lastIMoveY = ev.clientY;
