@@ -244,6 +244,7 @@ function buildTimeline(range) {
 	    var object = new THREE.CSS3DObject( div );
 		object.position.x = ( xPos * (itemWidth+xGap) ) - backset;
 		object.position.y = -itemHeight*.5;
+		div.obj = object;
 		timeline.add(object); 
 	}
     scene.add(timeline);
@@ -324,6 +325,7 @@ function buildTopicLabels(topics, topicsCount) {
 			object.position.x = ( i * (itemWidth+xGap) ) - backset;
 			object.position.y = -200;
 			object.position.z = -900;
+			div.obj = object;
 			topicLabels.add(object); 
 		}
 	}
