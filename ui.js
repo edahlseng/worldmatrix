@@ -559,6 +559,7 @@ function iframeTouchMove(ev) {
 	var obj = this.parentNode.obj;
 	if (!timelineObjects)
 	{
+		console.log(document.querySelectorAll('.timeline'));
 		timelineObjects = document.querySelectorAll('.timeline');
 		console.log(timelineObjects);
 	}
