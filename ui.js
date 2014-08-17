@@ -751,10 +751,12 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 
 	console.log(vector);
 
-	var direction = vector.sub(camera.position);
-	raycaster.set(camera.position, direction.normalize());
+	var direction = vector.sub(camera.position).normalize();
 	
-	console.log(raycaster);
+	var distance = -camera.position.z / direction.z;
+	var position = camera.position.clone().add(direction.multiplyScalar(distance));
+
+	console.log(position);
 
 	var recursive = true;
 	return raycaster.intersectObjects(objects, recursive);
