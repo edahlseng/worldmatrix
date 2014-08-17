@@ -760,6 +760,7 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
     
     console.log(pos);
+    console.log(objects[0].obj);
 
 	for (var i = 0; i < objects.length; i++)
 	{
