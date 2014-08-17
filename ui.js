@@ -746,13 +746,12 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	var raycaster = new THREE.Raycaster();
 
 
-	vector.set(x, y, 0);
+	vector.set(x, y, 3000);
 	projector.unprojectVector(vector, camera);
 
 	var direction = vector.sub(camera.position).normalize();
 	
 	var distance = -camera.position.z / direction.z;
-	distance = 0;
 	var position = camera.position.clone().add(direction.multiplyScalar(distance));
 
 	for (var i = 0; i < objects.length; i++)
