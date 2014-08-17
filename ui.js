@@ -557,6 +557,10 @@ function iframeTouchMove(ev) {
 
 	// faketrix added:
 	var obj = this.parentNode.obj;
+	if (!timelineObjects)
+	{
+		timelineObjects = document.querySelectorAll('.timeline');
+	}
 	// var z = obj.position.z;
 
 	// console.log("z pos", z);
@@ -598,6 +602,8 @@ function iframeTouchMove(ev) {
 		previousPosition = {x: ev.clientX, y: ev.clientY};
 		return;
 	}
+
+	console.log(timelineObjects[0].obj);
 
 	var movementDifference = {x: ev.clientX - previousPosition.x, y: ev.clientY - previousPosition.y};
 	
@@ -720,6 +726,7 @@ var dragging;
 var initialTouch;
 var previousPosition;
 var expanded = false;
+var timelineObjects;
 
 function screenDeltaToWorldWithZ(z, pxHeight) {
     // var theta = THREE.Math.degToRad(camera.fov / 2);
