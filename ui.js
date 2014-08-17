@@ -560,6 +560,7 @@ function iframeTouchMove(ev) {
 	if (!timelineObjects)
 	{
 		timelineObjects = document.querySelectorAll('.timeline');
+		console.log(timelineObjects);
 	}
 	// var z = obj.position.z;
 
