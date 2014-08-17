@@ -746,17 +746,15 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	var vector = new THREE.Vector3();
 	var raycaster = new THREE.Raycaster();
 
-	console.log(vector);
 
 	vector.set(x, y, 1);
 	projector.unprojectVector(vector, camera);
 
-	console.log(vector);
-
 	var direction = vector.sub(camera.position);
 	raycaster.set(camera.position, direction.normalize());
 	
-	return raycaster.intersectObjects(objects);
+	var recursive = true;
+	return raycaster.intersectObjects(objects, recursive);
 }
 
 function screenDeltaToWorldWithZ(z, pxHeight) {
