@@ -741,7 +741,7 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	var x = (mousePosition.x / window.innerWidth ) * 2 - 1;
 	var y = - (mousePosition.y / window.innerHeight ) * 2 + 1;
 
-	console.log(objects);
+	console.log("x", x, "y", y);
 
 	var projector = new THREE.Projector();
 	var vector = new THREE.Vector3();
