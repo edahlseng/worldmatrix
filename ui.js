@@ -763,14 +763,7 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 
 	for (var i = 0; i < objects.length; i++)
 	{
-		var element = objects[i];
-		var object = element.obj;
-		var objectPosition = object.position;
 		
-		if (ray.intersectObjects( object ))
-		{
-			return true;
-		}
 
 	}
 	return false;
