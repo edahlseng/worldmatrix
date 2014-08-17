@@ -805,7 +805,7 @@ function dragEnd(event)
 		notice.style.opacity = .7;
 		notice.innerText = "Article Sent";
 
-		document.appendChild(notice);
+		document.querySelector('html').appendChild(notice);
 		setTimeout(function () {
 			document.removeChild(notice);
 		}, 1500);
