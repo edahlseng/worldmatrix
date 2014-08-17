@@ -749,17 +749,24 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	vector.set(x, y, 1);
 	projector.unprojectVector(vector, camera);
 
-	console.log(vector);
-
 	var direction = vector.sub(camera.position).normalize();
 	
 	var distance = -camera.position.z / direction.z;
 	var position = camera.position.clone().add(direction.multiplyScalar(distance));
 
-	console.log(position);
+	for (var i = 0; i < objects.length; i++)
+	{
+		var object = objects[i];
+		if (position.x > object.position.x && (position.x - object.position.x) < object.size.width)
+		{
+			if (position.y > object.position.y && (position.y - object.position.y) < object.size.height)
+			{
+				return true;
+			}
+		}
 
-	var recursive = true;
-	return raycaster.intersectObjects(objects, recursive);
+	}
+	return false;
 }
 
 function screenDeltaToWorldWithZ(z, pxHeight) {
