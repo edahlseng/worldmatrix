@@ -561,12 +561,12 @@ function iframeTouchMove(ev) {
 	var obj = this.parentNode.obj;
 	if (!timelineObjects)
 	{
-		timelineObjects = document.querySelectorAll('.timebar:not(.topic)');
-		// timelineObjects = [];
-		// for (var i = 0; i < timebarElements.length; i++)
-		// {
-		// 	timelineObjects.push(timebarElements[i].obj);
-		// }
+		var timebarElements = document.querySelectorAll('.timebar:not(.topic)');
+		timelineObjects = [];
+		for (var i = 0; i < timebarElements.length; i++)
+		{
+			timelineObjects.push(timebarElements[i].obj);
+		}
 		// console.log(timelineObjects);
 	}
 	// var z = obj.position.z;
@@ -736,7 +736,7 @@ var previousPosition;
 var expanded = false;
 var timelineObjects;
 
-function mousePositionIntersectsObjects(mousePosition, elements) {
+function mousePositionIntersectsObjects(mousePosition, objects) {
 	var x = (mousePosition.x / window.innerWidth ) * 2 - 1;
 	var y = - (mousePosition.y / window.innerHeight ) * 2 + 1;
 
@@ -757,14 +757,17 @@ function mousePositionIntersectsObjects(mousePosition, elements) {
 	console.log(direction);
 	raycaster.set(camera.position, direction.normalize());
 
-	for (var i = 0; i < elements.length; i++)
-	{
-		var object = elements[i].obj;
-		if (raycaster.intersectObject(object)) {
-			console.log(object);
-			return true;
-		}
-	}
+	console.log(raycaster.intersectObjects(objects));
+
+	// for (var i = 0; i < elements.length; i++)
+	// {
+	// 	var object = elements[i].obj;
+	// 	console.log(raycaster.intersectObject);
+	// 	if (raycaster.intersectObject(object)) {
+	// 		console.log(object);
+	// 		return true;
+	// 	}
+	// }
 	return false;
 }
 
