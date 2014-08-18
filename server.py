@@ -224,16 +224,16 @@ def faketrixData():
         "json_list": []
     }
 
-    # for i in range(len(newsData['json_list'])):
-    #     related = newsData['json_list'][i]['related'] #newsData['json_list'][i]['publisher'] = randrange(24)
-    #     domain = ""
-    #     if len(related) > 0:
-    #         parsed_uri = urlparse(related[0]['url'])
-    #         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
-    #         publisherIndex = getPublisherIndex(domain)
-    #         if getPublisherIndex(domain) != -1:
-    #             newsData['json_list'][i]['publisher'] = publisherIndex
-    #             responseData['json_list'].append(newsData['json_list'][i])
+    for i in range(len(newsData['json_list'])):
+        related = newsData['json_list'][i]['related'] #newsData['json_list'][i]['publisher'] = randrange(24)
+        domain = ""
+        if len(related) > 0:
+            parsed_uri = urlparse(related[0]['url'])
+            domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+            publisherIndex = getPublisherIndex(domain)
+            if getPublisherIndex(domain) != -1:
+                newsData['json_list'][i]['publisher'] = publisherIndex
+                responseData['json_list'].append(newsData['json_list'][i])
 
     #get Helios data for people
     cookie_jar = cookielib.CookieJar()
@@ -250,12 +250,6 @@ def faketrixData():
 
     for index, publisher in enumerate(publishers):
         if publisher['type'] == "Helios":
-            videoData = {
-                "publisher": index, 
-                "title": "",
-                "timestamp": "",
-                "related": []
-            }
             try:
                 #http://um-helios.media.mit.edu/getVideos?user=Savannah
                 data = urllib2.urlopen("http://um-helios.media.mit.edu/getVideos?limit=20&user=" + urllib.quote_plus(publisher['url']))#.read()
@@ -263,6 +257,12 @@ def faketrixData():
                 print j
                 print ""
                 for video in j['videos']:
+                    videoData = {
+                        "publisher": index, 
+                        "title": "",
+                        "timestamp": "",
+                        "related": []
+                    }
                     videoData['title'] = video['videoTitle']
                     videoData['timestamp'] = video['lastViewTime']
                     related = {
