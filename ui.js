@@ -758,6 +758,7 @@ function mousePositionIntersectsObjects(mousePosition, elements) {
 	{
 		var object = elements[i].obj;
 		if (raycaster.intersectObject(object)) {
+			console.log(object);
 			return true;
 		}
 	}
