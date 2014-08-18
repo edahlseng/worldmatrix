@@ -289,12 +289,13 @@ def emailPerson():
     to = "savannah@mit.edu"
 
     msg['Subject'] = 'Message from the Matrix'
-    msg['From'] = "viralgrads@media.mit.edu"
+    msg['From'] = "The Media Matrix"
     msg['To'] = to
 
     s = smtplib.SMTP('localhost')
     s.sendmail("viralgrads@media.mit.edu", to, msg.as_string())
     s.quit()
+    return make_response("Email sent", 200)
 
 if __name__ == '__main__':
 	if len(sys.argv) != 2:
