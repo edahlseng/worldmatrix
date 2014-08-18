@@ -49,7 +49,7 @@ function populateZ(uielems) {
 			var rlength = related.length;
 			rlength = Math.min(11, rlength);
 			for (var j = 1; j < rlength*.39; j++) {
-				makeElement(uielems[i], j, related[j].url);
+				makeElement(uielems[i], j, related[j].url, related[j].thumbnail);
 			}
 			console.log("related");
 		}
@@ -128,7 +128,7 @@ function buildTimeline(range, publishers) {
     
 }
 
-function makeElement(uielem, zPos, url) {
+function makeElement(uielem, zPos, url, thumbnailUrl) {
 		var element = document.createElement( 'div' );
 		element.className = 'element';
 		element.style.backgroundColor = 'rgb(0,127,227)'; // + ( Math.random() * 0.5 + 0.25 ) + ')';
@@ -136,7 +136,8 @@ function makeElement(uielem, zPos, url) {
 
 		var symbol = document.createElement( 'img' );
 		symbol.className = 'previewimg';
-		symbol.src = urlToImgUrl(url); // || uielem.url;
+
+		symbol.src = thumbnailUrl || urlToImgUrl(url); // || uielem.url;
 		symbol.addEventListener('touchstart', imgTouchStart);
 		symbol.addEventListener('touchmove', imgMoveStart);
 		element.appendChild( symbol );
