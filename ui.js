@@ -750,8 +750,11 @@ function mousePositionIntersectsObjects(mousePosition, elements) {
 
 	vector.set(x, y, 1);
 	projector.unprojectVector( vector, camera );
+	console.log(vector);
+	console.log(camera.position);
 
 	var direction = vector.sub(camera.position);
+	console.log(direction);
 	raycaster.set(camera.position, direction.normalize());
 
 	for (var i = 0; i < elements.length; i++)
