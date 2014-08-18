@@ -563,7 +563,7 @@ function iframeTouchMove(ev) {
 	var obj = this.parentNode.obj;
 	if (!timelineObjects)
 	{
-		var timebarElements = document.querySelectorAll('.timebar:not(.topic)');
+		var timebarElements = document.querySelectorAll('.timebar.Helios:not(.topic)');
 		timelineObjects = [];
 		for (var i = 0; i < timebarElements.length; i++)
 		{
@@ -596,7 +596,7 @@ function iframeTouchMove(ev) {
 	} else {
 		var dy = Math.abs(ev.clientY - initialTouch.y);
 		var dx = Math.abs(ev.clientX - initialTouch.x);
-		if (!dragging && expanded && (dy > 50 || dx > 50))
+		if (!dragging && expanded && (dy > 50 || dx > 50) && camera.position.z < 4500)
 		{
 			dragging = true;
 			console.log("adding");
