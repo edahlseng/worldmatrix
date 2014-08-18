@@ -268,7 +268,9 @@ def faketrixData():
                     related = {
                         "url": "https://www.youtube.com/watch?v=" + video['videoID'],
                         "id": video['videoID'],
-                        "title": video['videoTitle']
+                        "title": video['videoTitle'],
+                        "type": "YT",
+                        "UMID": "YTISGH0KVSJzA"
                     }
                     videoData['related'].append(related)
                     responseData['json_list'].append(videoData)
