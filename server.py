@@ -279,6 +279,7 @@ def faketrixData():
     return json.dumps(responseData)
 
 @app.route('/share', methods=['POST'])
+@crossdomain(origin='*')
 def emailPerson():
     url = request.form['url']
     msg = MIMEText('Someone shared a video with you: ' + url)
