@@ -736,36 +736,30 @@ var previousPosition;
 var expanded = false;
 var timelineObjects;
 
-function mousePositionIntersectsObjects(mousePosition, objects) {
+function mousePositionIntersectsObjects(mousePosition, elements) {
 	var x = (mousePosition.x / window.innerWidth ) * 2 - 1;
 	var y = - (mousePosition.y / window.innerHeight ) * 2 + 1;
 
+	console.log(mousePosition);
+	console.log("x, y", x, y);
 
 	var projector = new THREE.Projector();
 	var vector = new THREE.Vector3();
 	var raycaster = new THREE.Raycaster();
 
 
-	var vector = new THREE.Vector3(
-    ( mousePosition.x / window.innerWidth ) * 2 - 1,
-    - ( mousePosition.y / window.innerHeight ) * 2 + 1,
-    0.5 );
-
+	vector.set(x, y, 1);
 	projector.unprojectVector( vector, camera );
 
-	var dir = vector.sub( camera.position ).normalize();
+	var direction = vector.sub(camera.position);
+	raycaster.set(camera.position, direction.normalize());
 
-	var distance = - camera.position.z / dir.z;
-
-	var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
-    
-    console.log(pos);
-    console.log(objects[0].obj);
-
-	for (var i = 0; i < objects.length; i++)
+	for (var i = 0; i < elements.length; i++)
 	{
-		
-
+		var object = element[i].obj;
+		if (raycaster.intersectObject(object)) {
+			return true;
+		}
 	}
 	return false;
 }
