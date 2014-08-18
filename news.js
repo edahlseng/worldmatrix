@@ -196,6 +196,9 @@ function getGraphic(ev) {
     for (var i in related) {
         var r = related[i];
 
+        if (r.thumbnail) {
+            return r.thumbnail;
+        }
         var encodedUrl = encodeURIComponent(r.url);
         return THUMB_URL + encodedUrl;
     }
