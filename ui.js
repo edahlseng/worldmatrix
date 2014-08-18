@@ -244,6 +244,7 @@ function buildTimeline(range) {
 	    var object = new THREE.CSS3DObject( div );
 		object.position.x = ( xPos * (itemWidth+xGap) ) - backset;
 		object.position.y = -itemHeight*.5;
+		div.obj = object;
 		timeline.add(object); 
 	}
     scene.add(timeline);
@@ -324,6 +325,7 @@ function buildTopicLabels(topics, topicsCount) {
 			object.position.x = ( i * (itemWidth+xGap) ) - backset;
 			object.position.y = -200;
 			object.position.z = -900;
+			div.obj = object;
 			topicLabels.add(object); 
 		}
 	}
@@ -455,6 +457,8 @@ function expand(elem) {
 	var duration = 800;
 	var obj = elem.obj;
 
+	// faketrix added:
+	startingPosition = {x:obj.position.x, y:obj.position.y};
 
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.In)
@@ -487,6 +491,17 @@ function expand(elem) {
 		.onUpdate( render )
 		.start();
 	currElem = elem;
+
+	// // Faketrix added:
+	// touchHandler.registerOnTouch(obj, null, dragEnd, dragMove);
+
+	setTimeout(function () {expanded = true;}, duration);
+
+	// $(document).on({
+	// 		'touchstart': touchHandler.onTouchStart,
+	// 		'touchmove': touchHandler.onTouchMove,
+	// 		'touchend': touchHandler.onTouchEnd
+	// 		});
 }
 
 function showContent(elem) {
@@ -519,6 +534,9 @@ function showContent(elem) {
 		    imgTags.hide();
 		    video.addEventListener('touchstart', contentTouchStart);
 
+		    // faketrix added:
+		    video.addEventListener('touchmove', iframeTouchMove);
+
 		    elem.appendChild(video);
         }
         console.warn(" *** no image tag!");
@@ -537,14 +555,94 @@ function iframeTouchMove(ev) {
 	ev.stopPropagation();
 	zframe = this;
 
-	if (!lastIMoveY) {
-		lastIMoveY = ev.clientY;
-	} else {
 
-		var dY = -2*(ev.clientY - lastIMoveY);
-		this.contentWindow.scrollBy(0, dY);
-		lastIMoveY = ev.clientY;
+
+	// faketrix added:
+	var obj = this.parentNode.obj;
+	if (!timelineObjects)
+	{
+		var timebarElements = document.querySelectorAll('.timebar:not(.topic)');
+		timelineObjects = [];
+		for (var i = 0; i < timebarElements.length; i++)
+		{
+			timelineObjects.push(timebarElements[i].obj);
+		}
+		// console.log(timelineObjects);
 	}
+	// var z = obj.position.z;
+
+	// console.log("z pos", z);
+
+	// var mouse3D = new THREE.Vector3(
+ //    ( event.clientX / window.innerWidth ) * 2 - 1,
+ //    - ( event.clientY / window.innerHeight ) * 2 + 1,
+ //    z );
+
+	// projector.unprojectVector( mouse3D, camera );
+
+	// var dir = mouse3D.sub( camera.position ).normalize();
+
+	// var distance = - camera.position.z / dir.z;
+
+	// var pos = camera.position.clone().add( dir.multiplyScalar( distance ) );
+
+	// console.log("position, ", pos);
+	
+	if (!initialTouch)
+	{
+		initialTouch = {x:ev.clientX, y:ev.clientY};
+	} else {
+		var dy = Math.abs(ev.clientY - initialTouch.y);
+		var dx = Math.abs(ev.clientX - initialTouch.x);
+		if (!dragging && expanded && (dy > 50 || dx > 50))
+		{
+			dragging = true;
+			console.log("adding");
+			this.addEventListener("touchend", dragEnd);
+		}
+	}
+
+	if (!dragging) {
+		return;
+	}
+
+	if (!previousPosition) {
+		previousPosition = {x: ev.clientX, y: ev.clientY};
+		return;
+	}
+
+	var movementDifference = {x: ev.clientX - previousPosition.x, y: ev.clientY - previousPosition.y};
+	
+	var yIn3d = -screenDeltaToWorldWithZ(obj.position.z, movementDifference.y);
+	var xIn3d = screenDeltaToWorldWithZ(obj.position.z, movementDifference.x);
+
+	var newPosition = {x: obj.position.x + xIn3d, y: obj.position.y + yIn3d};
+	var duration = 0.1;
+
+    new TWEEN.Tween(obj.position)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.to(newPosition, duration)
+		.start();
+
+	new TWEEN.Tween( this )
+		.to( {}, duration * 1.05)
+		.easing(TWEEN.Easing.Quadratic.Out)
+		.onUpdate( render )
+		.start();
+
+	previousPosition = {x: ev.clientX, y: ev.clientY};
+
+
+
+	//if (!lastIMoveY) {
+	//	lastIMoveY = ev.clientY;
+	//} else {
+
+	//	var dY = -2*(ev.clientY - lastIMoveY);
+		// this.contentWindow.scrollBy(0, dY);
+		// lastIMoveY = ev.clientY;
+	//}
+	
 	// console.log("iframe touch move", ev);
 }
 
@@ -557,6 +655,8 @@ function contentTouchStart(ev) {
 		if (delta < 450) {
 			// ev.stopPropogation();
 			console.log("you double tapped iframe!!!", this);
+			this.removeEventListener("touchend", dragEnd);
+			expanded = false;
 			shrink(this.parentNode);
 			currElem = null;
 		} else {
@@ -568,22 +668,29 @@ function contentTouchStart(ev) {
 	lastITime = now;
 }
 
-
-
-function shrink(elem) {
+function shrink(elem, position) {
 	var duration = 500;
 	var $elem = $(elem);
 	var size = {width: $elem.width(), height: $elem.height()};
 	var obj = elem.obj;
+
+
 
 	// remove any stuff
     $elem.children("iframe").remove();
     $elem.children("video").remove();
 	$elem.children("img").show();
 
+	// if (position) {
+		// position.z = obj.position.z - zMove;
+	// } else {
+	// 	position = {z: obj.position.z - zMove};
+	// }
+	startingPosition.z = obj.position.z - zMove;
+
 	new TWEEN.Tween(obj.position)
 		.easing(TWEEN.Easing.Quadratic.Out)
-		.to({z: obj.position.z - zMove}, duration)
+		.to(startingPosition, duration)
 		.start();
 	
 	new TWEEN.Tween(size)
@@ -600,6 +707,137 @@ function shrink(elem) {
 		.easing(TWEEN.Easing.Quadratic.Out)
 		.onUpdate( render )
 		.start();
+
+
+	// faketrix added:
+	// $(document).off({
+	// 		'touchstart': touchHandler.onTouchStart,
+	// 		'touchmove': touchHandler.onTouchMove,
+	// 		'touchend': touchHandler.onTouchEnd
+	// 		});
+}
+
+// faketrix added:
+
+var projector = new THREE.Projector();
+
+// var touchHandler; 
+// function loadTouchHandler() {
+// 	// camera is defined in index.html
+// 	var config = null;
+// 	touchHandler = new TouchHandler(new Utils(), camera, config);
+// 	// GeometryUtils.init(config, touchHandler, AnimationUtils);
+// }
+
+var startingPosition;
+var dragging;
+var initialTouch;
+var previousPosition;
+var expanded = false;
+var timelineObjects;
+
+function mousePositionIntersectsObjects(mousePosition, objects) {
+	var x = (mousePosition.x / window.innerWidth ) * 2 - 1;
+	var y = - (mousePosition.y / window.innerHeight ) * 2 + 1;
+
+	console.log("x, y", x, y);
+
+	var projector = new THREE.Projector();
+	var vector = new THREE.Vector3(x, y, 1);
+	
+	projector.unprojectVector( vector, camera );
+
+	// var direction = vector.sub(camera.position);
+	var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+	// var raycaster = projector.pickingRay(vector.clone(), camera);
+
+	var planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), -800); // the timeline has a z position of 800
+
+	var position = raycaster.ray.intersectPlane(planeZ);
+
+	var relativeTimelinePosition = {x: position.x - timeline.position.x, y: position.y - timeline.position.y};
+
+	console.log("relative position", relativeTimelinePosition);
+
+	var rTP = relativeTimelinePosition;
+
+	for (var i = 0; i < objects.length; i++)
+	{
+		var object = objects[i];
+		var oP = {x: object.position.x - (object.element.clientWidth / 2.0), y: object.position.y + (object.element.clientHeight / 2.0)}; // need to account for some translations
+		var oS = {width: object.element.clientWidth, height: object.element.clientHeight};
+
+		if (rTP.x > oP.x && rTP.x < (oP.x + oS.width) && rTP.y < oP.y && rTP.y > (oP.y - oS.height))
+		{
+			console.log(object);
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function screenDeltaToWorldWithZ(z, pxHeight) {
+    // var theta = THREE.Math.degToRad(camera.fov / 2);
+    var theta = camera.fov / 2.0;
+    var full3dHeight = 2.0 * Math.tan(theta) * z;
+
+    var fullPxHeight = window.innerHeight * 1.0;
+    var ratio =   pxHeight * 1.0 / fullPxHeight;
+    var worldHeight = ratio * full3dHeight;
+
+    // console.log("z", z);
+    // console.log("worldHeight", worldHeight);
+
+    // zzobj.position.y = 1450; zzobj.position.x = -2900;
+
+    return worldHeight * 7.0;
 }
 
 
+// function width3dWithZ(z, pxWidth) {
+//     var theta = THREE.Math.degToRad(camera.fov / 2);
+//     var full3dWidth = 2 * Math.tan(theta) * z;
+
+//     var fullPxWidth = window.innerWidth;
+//     var ratio =   pxWidth / fullPxWidth;
+//     var worldWidth = ratio * full3dWidth;
+
+//     // zzobj.position.y = 1450; zzobj.position.x = -2900;
+
+//     return worldWidth;
+// }
+
+function dragEnd(event)
+{
+	console.log("drag ended");
+	// console.log(event);
+	var mouseIntersectsPerson = mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects);
+	if (mouseIntersectsPerson) {
+		var notice = document.createElement('div');
+		notice.style.position = "absolute";
+		notice.style.top = 0;
+		notice.style.left = 0;
+		notice.style.width = '100%';
+		notice.style.height = '100%';
+		notice.style.lineHeight = '100%';
+		notice.style.horizontalAlign = "center";
+		notice.style.background = "black";
+		notice.style.opacity = .85;
+		notice.innerHTML = '<p style="position: absolute; width: 100%; text-align: center; height: 300px; line-height: 300px; top: 50%; margin-top: -150px;">Article Sent</p>';
+		notice.style.fontSize = '200px';
+		notice.style.color = "white";
+		notice.style.fontFamily = "Arial";
+
+		document.querySelector('html').appendChild(notice);
+		setTimeout(function () {
+			document.querySelector('html').removeChild(notice);
+		}, 1500);
+	}
+	// shrink(this.parentNode, startingPosition);
+	// currElem = null;
+	lastITime = (new Date()).getTime();
+	contentTouchStart.call(this);
+	previousPosition = null;
+	dragging = false;
+}
