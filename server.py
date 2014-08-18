@@ -289,7 +289,7 @@ def emailPerson():
     to = "savannah@mit.edu"
 
     msg['Subject'] = 'Message from the Matrix'
-    msg['From'] = "The Media Matrix"
+    msg['From'] = "The Media Matrix <viralgrads@media.mit.edu>"
     msg['To'] = to
 
     s = smtplib.SMTP('localhost')
