@@ -759,15 +759,19 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 
 	console.log("relative position", relativeTimelinePosition);
 
-	// for (var i = 0; i < elements.length; i++)
-	// {
-	// 	var object = elements[i].obj;
-	// 	console.log(raycaster.intersectObject);
-	// 	if (raycaster.intersectObject(object)) {
-	// 		console.log(object);
-	// 		return true;
-	// 	}
-	// }
+	var rTP = relativeTimelinePosition;
+
+	for (var i = 0; i < elements.length; i++)
+	{
+		var object = objects[i];
+		
+		if (rTP.x > object.position.x && rTP.x < (object.position.x + object.element.clientWidth) && rTP.y < object.position.y && rTP > (object.position.y - object.element.clientHeight))
+		{
+			console.log(object);
+			return true;
+		}
+	}
+
 	return false;
 }
 
