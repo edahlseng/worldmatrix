@@ -748,8 +748,8 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	projector.unprojectVector( vector, camera );
 
 	// var direction = vector.sub(camera.position);
-	// var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-	var raycaster = projector.pickingRay(vector.clone(), camera);
+	var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+	// var raycaster = projector.pickingRay(vector.clone(), camera);
 
 	console.log(raycaster);
 	console.log(raycaster.intersectObject(timeline));
@@ -801,7 +801,7 @@ function screenDeltaToWorldWithZ(z, pxHeight) {
 function dragEnd(event)
 {
 	console.log("drag ended");
-	console.log(event);
+	// console.log(event);
 	console.log(mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects));
 	if (true) {
 		var notice = document.createElement('div');
