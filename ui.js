@@ -740,7 +740,6 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	var x = (mousePosition.x / window.innerWidth ) * 2 - 1;
 	var y = - (mousePosition.y / window.innerHeight ) * 2 + 1;
 
-	console.log(mousePosition);
 	console.log("x, y", x, y);
 
 	var projector = new THREE.Projector();
@@ -757,7 +756,7 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	console.log(direction);
 	raycaster.set(camera.position, direction.normalize());
 
-	console.log(raycaster.intersectObjects(objects));
+	console.log(raycaster.intersectObject(timeline));
 
 	// for (var i = 0; i < elements.length; i++)
 	// {
