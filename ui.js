@@ -751,7 +751,7 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
 	// var raycaster = projector.pickingRay(vector.clone(), camera);
 
-	var planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), 800); // the timeline has a z position of 800
+	var planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), -800); // the timeline has a z position of 800
 
 	console.log(raycaster);
 	console.log("scene childre", scene.children);
