@@ -747,8 +747,9 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	
 	projector.unprojectVector( vector, camera );
 
-	var direction = vector.sub(camera.position);
-	var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+	// var direction = vector.sub(camera.position);
+	// var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+	var raycaster = projector.pickingRay(vector.clone(), camera);
 
 	console.log(raycaster);
 	console.log(raycaster.intersectObject(timeline));
