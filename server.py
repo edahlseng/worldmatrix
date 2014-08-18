@@ -7,6 +7,10 @@ import urllib, urllib2, cookielib
 from random import randrange
 from urlparse import urlparse
 
+# email modules
+import smtplib
+from email.mime.text import MIMEText
+
 app = Flask(__name__)
 app.debug = True
 
@@ -273,6 +277,21 @@ def faketrixData():
 
     #return response
     return json.dumps(responseData)
+
+@app.route('/share', methods=['POST'])
+def emailPerson():
+    url = request.form['url']
+    msg = MIMEText('Someone shared a video with you: ' + url)
+
+    to = "savannah@mit.edu"
+
+    msg['Subject'] = 'Message from the Matrix'
+    msg['From'] = "viralgrads@media.mit.edu"
+    msg['To'] = to
+
+    s = smtplib.SMTP('localhost')
+    s.sendmail("viralgrads@media.mit.edu", to, msg.as_string())
+    s.quit()
 
 if __name__ == '__main__':
 	if len(sys.argv) != 2:

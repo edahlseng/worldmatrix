@@ -772,11 +772,14 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 		if (rTP.x > oP.x && rTP.x < (oP.x + oS.width) && rTP.y < oP.y && rTP.y > (oP.y - oS.height))
 		{
 			console.log(object);
-			return true;
+			if (object.element.className == "timebar Helios AndyLippman") {
+				return "AndyLippman";
+			}
+			return "User";
 		}
 	}
 
-	return false;
+	return null;
 }
 
 function screenDeltaToWorldWithZ(z, pxHeight) {
@@ -835,6 +838,15 @@ function dragEnd(event)
 		setTimeout(function () {
 			document.querySelector('html').removeChild(notice);
 		}, 1500);
+
+		// send an email if someone shared something with Andy
+		if (mouseIntersectsPerson == 'AndyLippman') 
+		{
+			var request = new XMLHttpRequest();
+			request.open('POST', 'http://um.media.mit.edu:10018/share', true);
+			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			request.send('url=' + encodeURIComponent(this.src));
+		}
 	}
 	// shrink(this.parentNode, startingPosition);
 	// currElem = null;
