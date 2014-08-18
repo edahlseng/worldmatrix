@@ -13,12 +13,12 @@
 				top: 0px;
 				right: 0px;
 				width: 100%;
-				height:68px;
+				height:80px;
 				text-align: left;
 				padding: 0;
 				margin: 0;
 				z-index: 100000;
-				background-color:black;
+				background-color:rgba(22, 160, 133,.850);
 				color:white;
 	vertical-align: top;
 	cursor: pointer;
@@ -51,7 +51,7 @@
 				-moz-user-select: none;
 				-ms-user-select: none;
 				user-select: none;
-				background-color: #303336;
+				background-color: #2c3e50;
 				margin: 0;
 				font-family: Helvetica, sans-serif;;
 				overflow: hidden;
@@ -60,6 +60,10 @@
 			a {
 				color: #ffffff;
 			}
+.ib h1 {
+	font-size: 50px;
+
+}
 .midnight {
 	color: gray;
 }
@@ -91,7 +95,11 @@
 	margin-top: 150px;
 }
 
-#SavannahNiles, #EricDahlseng, #AndyLippman, #AmirLazarovich, #VivianDiep, #TravisRich, #JonFerguson {
+/*#SavannahNiles, #EricDahlseng, #AndyLippman, #AmirLazarovich, #VivianDiep, #TravisRich, #JonFerguson {
+	border-radius: 100px;
+}
+*/
+.Helios img {
 	border-radius: 100px;
 }
 
@@ -270,12 +278,17 @@ max-height:100%;
 		</header>
 		 -->
 	 	<div id="topmenu" style="font-size:12px;">
-			<div class="wrapper just wf" style="position:absolute; top: 12px; left: 51px; ">
+			<div class="wrapper just wf" style="position:absolute; top: 5px; left: 5px; ">
 				<a class="ib" style="" href="http://viral.media.mit.edu">
-					<div id="Logo" class="ib">
+<!-- 					<div id="Logo" class="ib">
                         <img style="position:absolute; top: 3px; left:-35px" src="http://um-display.media.mit.edu/window/img/logo.png" width="32" height="32" alt="wl logo">
+<<<<<<< HEAD
 					</div>
 					<h1 class="ib"><strong>MediaMatrix</strong></h1>
+=======
+					</div> -->
+					<h1 class="ib">MediaMatrix</h1>
+<!-- >>>>>>> adding-live-content -->
 				</a>
 			</div>
 		</div>
@@ -407,9 +420,11 @@ max-height:100%;
 			function ready(raw, mapraw) {
 				console.log("news loaded");
 				var results = raw.json_list;
+				var publishers = raw.publishers;
+				console.log (publishers);
 				var tIndex = 0;
 
-				console.log(timeRange);
+				console.log("timeRange: " + timeRange);
 
 				for (var i = 0; i < results.length * scaleFactor; i++) {
 					var newsEv = results[i];
@@ -457,7 +472,7 @@ max-height:100%;
 
 				animate();
 				populateZ(uielems);
-				var startTime = buildTimeline(timeRange);
+				var startTime = buildTimeline(timeRange, publishers);
 				console.log("start", startTime);
 
 				console.log("one");
