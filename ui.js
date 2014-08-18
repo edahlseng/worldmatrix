@@ -818,6 +818,7 @@ function dragEnd(event)
 	console.log("drag ended");
 	// console.log(event);
 	var mouseIntersectsPerson = mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects);
+	console.log(mouseIntersectsPerson);
 	if (mouseIntersectsPerson) {
 		var notice = document.createElement('div');
 		notice.style.position = "absolute";
