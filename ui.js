@@ -798,6 +798,7 @@ function screenDeltaToWorldWithZ(z, pxHeight) {
 function dragEnd(event)
 {
 	console.log("drag ended");
+	console.log(event);
 	console.log(mousePositionIntersectsObjects({x: event.pageX, y: event.pageY}, timelineObjects));
 	if (true) {
 		var notice = document.createElement('div');
