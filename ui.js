@@ -752,6 +752,8 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 	// var raycaster = projector.pickingRay(vector.clone(), camera);
 
 	console.log(raycaster);
+	console.log("scene childre", scene.children);
+	console.log(raycaster.intersectObjects(scene.children, true));
 	console.log(raycaster.intersectObject(timeline, true));
 	console.log(raycaster.intersectObjects(objects, true));
 
