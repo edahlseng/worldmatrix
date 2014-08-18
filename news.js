@@ -187,7 +187,7 @@ function getGraphic(ev) {
     var ents = ev.entities;
     for (var i in ents) {
         var ent = ents[i];
-        if (ent.type === 'YT'  ) {
+        if (ent.type === 'YT' ) {
             console.log("YT", ent);
             return umIdToYTImg(ent.UMID);
         }
