@@ -766,12 +766,7 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 		var object = objects[i];
 		var oP = {x: object.position.x - (object.element.clientWidth / 2.0), y: object.position.y + (object.element.clientHeight / 2.0)}; // need to account for some translations
 		var oS = {width: object.element.clientWidth, height: object.element.clientHeight};
-		if (i == 0)
-		{
-			console.log("relative", rTP);
-			console.log("position", oP);
-			console.log("size", oS);
-		}
+
 		if (rTP.x > oP.x && rTP.x < (oP.x + oS.width) && rTP.y < oP.y && rTP.y > (oP.y - oS.height))
 		{
 			console.log(object);
@@ -817,8 +812,8 @@ function dragEnd(event)
 {
 	console.log("drag ended");
 	// console.log(event);
-	console.log(mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects));
-	if (true) {
+	var mouseIntersectsPerson = mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects));
+	if (mouseIntersectsPerson) {
 		var notice = document.createElement('div');
 		notice.style.position = "absolute";
 		notice.style.top = 0;
