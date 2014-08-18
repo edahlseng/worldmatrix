@@ -761,7 +761,7 @@ function mousePositionIntersectsObjects(mousePosition, objects) {
 
 	var rTP = relativeTimelinePosition;
 
-	for (var i = 0; i < elements.length; i++)
+	for (var i = 0; i < objects.length; i++)
 	{
 		var object = objects[i];
 		
