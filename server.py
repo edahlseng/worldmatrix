@@ -224,16 +224,16 @@ def faketrixData():
         "json_list": []
     }
 
-    for i in range(len(newsData['json_list'])):
-        related = newsData['json_list'][i]['related'] #newsData['json_list'][i]['publisher'] = randrange(24)
-        domain = ""
-        if len(related) > 0:
-            parsed_uri = urlparse(related[0]['url'])
-            domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
-            publisherIndex = getPublisherIndex(domain)
-            if getPublisherIndex(domain) != -1:
-                newsData['json_list'][i]['publisher'] = publisherIndex
-                responseData['json_list'].append(newsData['json_list'][i])
+    # for i in range(len(newsData['json_list'])):
+    #     related = newsData['json_list'][i]['related'] #newsData['json_list'][i]['publisher'] = randrange(24)
+    #     domain = ""
+    #     if len(related) > 0:
+    #         parsed_uri = urlparse(related[0]['url'])
+    #         domain = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+    #         publisherIndex = getPublisherIndex(domain)
+    #         if getPublisherIndex(domain) != -1:
+    #             newsData['json_list'][i]['publisher'] = publisherIndex
+    #             responseData['json_list'].append(newsData['json_list'][i])
 
     #get Helios data for people
     cookie_jar = cookielib.CookieJar()
@@ -269,8 +269,9 @@ def faketrixData():
                         "url": "https://www.youtube.com/watch?v=" + video['videoID'],
                         "id": video['videoID'],
                         "title": video['videoTitle'],
-                        "type": "YT",
-                        "UMID": "YTISGH0KVSJzA"
+                        # "type": "YT",
+                        "thumbnail": video['thumbnailImgSrc']
+                        # "UMID": "YTISGH0KVSJzA"
                     }
                     videoData['related'].append(related)
                     responseData['json_list'].append(videoData)
