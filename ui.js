@@ -799,7 +799,7 @@ function dragEnd(event)
 {
 	console.log("drag ended");
 	console.log(event);
-	console.log(mousePositionIntersectsObjects({x: event.pageX, y: event.pageY}, timelineObjects));
+	console.log(mousePositionIntersectsObjects({x: event.clientX, y: event.clientY}, timelineObjects));
 	if (true) {
 		var notice = document.createElement('div');
 		notice.style.position = "absolute";
