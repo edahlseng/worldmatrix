@@ -6,7 +6,7 @@ var MAP_URL = 'http://um.media.mit.edu:5005/map/all';
 // var TRENDS_URL = 'http://um.media.mit.edu:5005/trends/24';
 
 // var NEWS_URL = 'http://um.media.mit.edu:5005/news/48';
-var NEWS_URL = 'http://um.media.mit.edu:10018/faketrixData';
+var NEWS_URL = 'http://um-worldmatrix.media.mit.edu/faketrixData';
 // var NEWS_URL = 'http://localhost:8000/faketrixData';
 var KEYWORD_URL = 'http://um.media.mit.edu:5005/keyword/';
 
